@@ -37,7 +37,7 @@ export function SideCarousel() {
 	}, [api, current])
 
 	return (
-		<div className='hidden lg:flex flex-col items-center w-1/2'>
+		<div className='hidden lg:flex flex-col items-center w-1/2 bg-teal-100'>
 			<Carousel
 				setApi={setApi}
 				plugins={[plugin.current]}
