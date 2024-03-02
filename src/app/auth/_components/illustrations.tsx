@@ -5,6 +5,7 @@ export function RocketIllustration({ className }: { className?: string }) {
 			viewBox='0 0 500 500'
 			className={className}
 		>
+			<title>An illustration containing two people looking at a rocket</title>
 			<path
 				fill='#92e3a9'
 				d='M482.12 291.52s3.26-126.85-71.48-186.37c-66-52.53-158.46-62.1-222.38.6-22.77 22.35-35.77 60.65-64 76.43-31.71 17.7-74.33 29.11-97.11 86.56S26.49 391.58 74 420.58s114.87-17.79 180.24-31.1S472.31 449 482.12 291.52z'
@@ -478,6 +479,7 @@ export function ClimbingIllustration({ className }: { className?: string }) {
 			viewBox='0 0 500 500'
 			className={className}
 		>
+			<title>An illustration containing a man climbing up to a trophy</title>
 			<path
 				fill='#92e3a9'
 				d='M411.44 108.87c-17-17.62-36.48-32.26-57.18-42.52-31.53-15.63-66.26-23.16-101-23.61C151.76 41.44 144 167.8 112.83 185.37S25.05 205 23.1 275.28c-1.23 44.21 8.51 89.66 35.89 124.1 25.08 31.54 61.93 47.53 98.22 59.34C198 472 241.21 485 284.08 476.05c44-9.19 74.92-46.11 111.05-71.06 22.75-15.71 43.17-32.25 57.22-57.46 1.68-3 3.25-6.08 4.75-9.2 18.81-39.17 22.49-84.35 12.12-126.74-9.3-38.03-30.31-74.26-57.78-102.72z'
@@ -767,6 +769,9 @@ export function DashboardIllustration({ className }: { className?: string }) {
 			viewBox='0 0 500 500'
 			className={className}
 		>
+			<title>
+				An illustration containing a man interacting with a dashboard
+			</title>
 			<defs>
 				<clipPath id='a'>
 					<path
