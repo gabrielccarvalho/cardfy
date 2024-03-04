@@ -18,7 +18,7 @@ export function SidebarNav() {
 				className='flex items-center justify-center gap-3 rounded-lg aria-expanded:px-3 aria-expanded:justify-normal py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
 				aria-selected={pathname === '/app'}
 				aria-expanded={expanded}
-				href='/app'
+				href={`/app?menu=${useSearchParams().get('menu')}`}
 			>
 				<DashboardIcon
 					className='size-7 aria-expanded:size-5'
@@ -35,7 +35,7 @@ export function SidebarNav() {
 				className='flex items-center justify-center gap-3 rounded-lg aria-expanded:justify-normal aria-expanded:px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
 				aria-selected={pathname.startsWith('/app/flashcards')}
 				aria-expanded={expanded}
-				href='/app/flashcards'
+				href={`/app/flashcards?menu=${useSearchParams().get('menu')}`}
 			>
 				<CardStackIcon
 					className='size-7 aria-expanded:size-5'
@@ -52,7 +52,7 @@ export function SidebarNav() {
 				className='flex items-center justify-center gap-3 rounded-lg aria-expanded:justify-normal aria-expanded:px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
 				aria-selected={pathname.startsWith('/app/store')}
 				aria-expanded={expanded}
-				href='/app/store'
+				href={`/app/store?menu=${useSearchParams().get('menu')}`}
 			>
 				<StoreIcon
 					className='size-7 aria-expanded:size-5'
