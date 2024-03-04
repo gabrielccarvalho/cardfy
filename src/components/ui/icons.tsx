@@ -58,3 +58,41 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
 		</svg>
 	)
 }
+
+export function NotificationsOffIcon(props: React.SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			{...props}
+			xmlns='http://www.w3.org/2000/svg'
+			width='24'
+			height='24'
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			strokeWidth='1.25'
+		>
+			<path d='M8.7 3A6 6 0 0118 8a21.3 21.3 0 00.6 5M17 17H3s3-2 3-9a4.67 4.67 0 01.3-1.7m4 14.7a1.94 1.94 0 003.4 0M2 2l20 20' />
+		</svg>
+	)
+}
+
+export function NotificationsOnIcon(props: React.SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			{...props}
+			xmlns='http://www.w3.org/2000/svg'
+			width='24'
+			height='24'
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke='currentColor'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+			stroke-width='1.25'
+		>
+			<path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0' />
+		</svg>
+	)
+}
