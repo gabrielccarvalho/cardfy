@@ -1,10 +1,9 @@
-import { SearchIcon } from '@/components/ui/icons'
-import { Input } from '@/components/ui/input'
+import { Searchbar } from '@/components/searchbar'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { Separator } from '@/components/ui/separator'
+import { UserDropdown } from '@/components/user-dropdown'
 import Image from 'next/image'
 import Link from 'next/link'
-import { UserDropdown } from './user-dropdown'
 
 export function Header() {
 	return (
@@ -22,16 +21,7 @@ export function Header() {
 				/>
 				<span className='sr-only'>Cardify</span>
 			</Link>
-			<form className='flex-1 ml-auto sm:flex-initial'>
-				<div className='relative'>
-					<SearchIcon className='absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400' />
-					<Input
-						className='pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]'
-						placeholder='Search anything in the app...'
-						type='search'
-					/>
-				</div>
-			</form>
+			<Searchbar />
 			<div className='flex items-center gap-2 h-full'>
 				<ModeToggle />
 				<Separator orientation='vertical' className='max-h-6' />
