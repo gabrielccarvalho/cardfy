@@ -1,16 +1,8 @@
-import { Button } from '@/components/ui/button'
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { SearchIcon, UserIcon } from '@/components/ui/icons'
+import { SearchIcon } from '@/components/ui/icons'
 import { Input } from '@/components/ui/input'
 import Image from 'next/image'
 import Link from 'next/link'
+import { UserDropdown } from './user-dropdown'
 
 export function Header() {
 	return (
@@ -38,31 +30,7 @@ export function Header() {
 					/>
 				</div>
 			</form>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button
-						className='rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800'
-						id='menu'
-						size='icon'
-						variant='ghost'
-					>
-						<UserIcon className='h-4 w-4' />
-						<span className='sr-only'>Toggle user menu</span>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent
-					align='end'
-					aria-labelledby='menu'
-					className='rounded-lg'
-				>
-					<DropdownMenuLabel>My Account</DropdownMenuLabel>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem>Settings</DropdownMenuItem>
-					<DropdownMenuItem>Support</DropdownMenuItem>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem>Logout</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
+			<UserDropdown />
 		</header>
 	)
 }
