@@ -1,11 +1,15 @@
-import { auth } from '@/services/auth'
-import { UserInfo } from './_components/user-info'
+import { Header } from './_components/header'
+import { Sidebar } from './_components/sidebar'
 
-export default async function AppPage() {
-	const session = await auth()
+export default function App({
+	searchParams,
+}: { searchParams?: { [key: string]: string | string[] | undefined } }) {
 	return (
-		<main className='flex flex-col items-center justify-center h-screen'>
-			<UserInfo user={session?.user} />
-		</main>
+		<div className='flex min-h-screen w-full'>
+			<Sidebar query={searchParams} />
+			<div className='flex flex-col w-full'>
+				<Header />
+			</div>
+		</div>
 	)
 }

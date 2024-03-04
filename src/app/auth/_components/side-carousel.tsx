@@ -21,7 +21,7 @@ export function SideCarousel() {
 	const [current, setCurrent] = useState(0)
 	const [count, setCount] = useState(0)
 
-	const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }))
+	const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }))
 
 	useEffect(() => {
 		if (!api) return
@@ -37,7 +37,7 @@ export function SideCarousel() {
 	}, [api, current])
 
 	return (
-		<div className='hidden lg:flex flex-col items-center w-1/2 bg-teal-100'>
+		<div className='hidden lg:flex flex-col items-center w-1/2 bg-teal-200'>
 			<Carousel
 				setApi={setApi}
 				plugins={[plugin.current]}
@@ -48,39 +48,39 @@ export function SideCarousel() {
 			>
 				<CarouselContent className='h-screen w-full'>
 					<CarouselItem className='w-full flex items-center justify-center -mr-4'>
-						<div className='bg-teal-100 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
+						<div className='bg-teal-200 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
 							<RocketIllustration className='max-w-screen-sm' />
 							<div className='flex flex-col gap-4'>
-								<h1 className='text-4xl text-center max-w-lg'>
+								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
 									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
 								</h1>
-								<p className='text-gray-500 dark:text-gray-400 text-center max-w-screen-sm'>
+								<p className='text-teal-900 text-center max-w-screen-sm'>
 									Lorem ipsum dolor sit amet
 								</p>
 							</div>
 						</div>
 					</CarouselItem>
 					<CarouselItem className='w-full flex items-center justify-center -mr-4'>
-						<div className='bg-teal-100 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
+						<div className='bg-teal-200 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
 							<ClimbingIllustration className='max-w-screen-sm' />
 							<div className='flex flex-col gap-4'>
-								<h1 className='text-4xl text-center max-w-lg'>
+								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
 									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
 								</h1>
-								<p className='text-gray-500 dark:text-gray-400 text-center max-w-screen-sm'>
+								<p className='text-teal-900 text-center max-w-screen-sm'>
 									Lorem ipsum dolor sit amet
 								</p>
 							</div>
 						</div>
 					</CarouselItem>
 					<CarouselItem className='w-full flex items-center justify-center -mr-4'>
-						<div className='bg-teal-100 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
+						<div className='bg-teal-200 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
 							<DashboardIllustration className='max-w-screen-sm' />
 							<div className='flex flex-col gap-4'>
-								<h1 className='text-4xl text-center max-w-lg'>
+								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
 									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
 								</h1>
-								<p className='text-gray-500 dark:text-gray-400 text-center max-w-screen-sm'>
+								<p className='text-teal-900 text-center max-w-screen-sm'>
 									Lorem ipsum dolor sit amet
 								</p>
 							</div>
@@ -93,7 +93,7 @@ export function SideCarousel() {
 					index={current}
 					total={count}
 					onClick={setCurrent}
-					className='bg-gray-800'
+					className='bg-teal-950'
 				/>
 			</div>
 		</div>
