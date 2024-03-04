@@ -23,6 +23,6 @@ export async function GET() {
 		prisma.$disconnect()
 		return NextResponse.json({ success: true, categories })
 	} catch (error) {
-		return NextResponse.json({ message: 'Error fetching flashcards', error })
+		return NextResponse.json({ message: 'Error fetching categories', error })
 	}
 }

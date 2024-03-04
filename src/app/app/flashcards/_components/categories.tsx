@@ -6,7 +6,7 @@ import { CategoryCard } from './category-card'
 
 export function Categories() {
 	async function fetchCategories() {
-		const res = await fetch('/api/flashcards/fetch-categories')
+		const res = await fetch('/api/flashcards/categories/fetch-categories')
 		const {
 			categories,
 		}: { categories: (Category & { flashcards: Flashcard[] })[] } =
