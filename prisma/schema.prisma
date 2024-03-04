@@ -42,6 +42,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  flashcards    Flashcard[]
+  categories    Category[]
 }
 
 model VerificationToken {
@@ -50,4 +52,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Flashcard {
+  id         String  @id @default(cuid())
+  question   String
+  answer     String
+  slug       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@index([userId])
+}
+
+model Category {
+  id         String      @id @default(cuid())
+  name       String
+  slug       String
+  description String?
+  flashcards Flashcard[]
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

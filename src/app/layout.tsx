@@ -2,6 +2,7 @@ import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
+import { ThemeProvider } from '@/components/theme-provider'
 import '@/styles/globals.css'
 import { Providers } from './providers'
 
@@ -19,12 +20,19 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>
-				<Providers>
-					{children}
-					<Toaster />
-				</Providers>
-			</body>
+			<Providers>
+				<body className={inter.className}>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						enableSystem={false}
+						disableTransitionOnChange
+					>
+						{children}
+						<Toaster />
+					</ThemeProvider>
+				</body>
+			</Providers>
 		</html>
 	)
 }

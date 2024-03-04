@@ -8,8 +8,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { LogOutIcon, UserIcon } from '@/components/ui/icons'
-import { signOut } from 'next-auth/react'
+import { UserIcon } from '@/components/ui/icons'
+import { LogoutAlertDialog } from './logout-alert-dialog'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 export function UserDropdown() {
@@ -34,12 +34,8 @@ export function UserDropdown() {
 				<DropdownMenuItem>Settings</DropdownMenuItem>
 				<DropdownMenuItem>Support</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					className='group hover:cursor-pointer'
-					onClick={() => signOut()}
-				>
-					<p className='group-hover:text-red-500'>Sign Out</p>
-					<LogOutIcon className='size-4 ml-2 group-hover:text-red-500' />
+				<DropdownMenuItem asChild>
+					<LogoutAlertDialog />
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

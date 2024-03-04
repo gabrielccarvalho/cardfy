@@ -1,3 +1,5 @@
+import { Categories } from './_components/categories'
+
 export default function Flashcards() {
-	return <main />
+	return <Categories />
 }
