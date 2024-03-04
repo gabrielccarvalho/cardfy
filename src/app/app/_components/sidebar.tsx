@@ -1,20 +1,21 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
-import { StoreIcon } from '@/components/ui/icons'
 import {
-	CardStackIcon,
-	DashboardIcon,
 	DoubleArrowLeftIcon,
 	DoubleArrowRightIcon,
 	LightningBoltIcon,
 } from '@radix-ui/react-icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { SidebarNav } from './navigation'
 import { UpgradeToProCard } from './upgrade-to-pro-card'
 
-export function Sidebar({
-	query,
-}: { query?: { [key: string]: string | string[] | undefined } }) {
-	const expanded = query?.menu === 'expanded'
+export function Sidebar() {
+	const pathname = usePathname()
+	const searchParams = useSearchParams()
+	const expanded = searchParams.get('menu') === 'expanded'
 
 	return (
 		<div
@@ -40,7 +41,7 @@ export function Sidebar({
 					</Link>
 					<Link
 						className='ml-auto size-8 min-w-8'
-						href={`/app?menu=${expanded ? 'collapsed' : 'expanded'}`}
+						href={`${pathname}?menu=${expanded ? 'collapsed' : 'expanded'}`}
 					>
 						<Button
 							className='ml-auto size-8 min-w-8'
@@ -57,59 +58,7 @@ export function Sidebar({
 					</Link>
 				</div>
 				<div className='flex-1 overflow-auto py-2'>
-					<nav
-						className='grid items-start px-4 aria-expanded:px-4 text-sm font-medium transition-all duration-500 space-y-2'
-						aria-expanded={expanded}
-					>
-						<Link
-							className='flex items-center gap-3 rounded-lg px-4 aria-expanded:px-3 py-2 transition-all group hover:text-teal-500'
-							aria-expanded={expanded}
-							href='#'
-						>
-							<DashboardIcon
-								className='size-7 aria-expanded:size-5'
-								aria-expanded={expanded}
-							/>
-							<span
-								className='sr-only aria-expanded:not-sr-only'
-								aria-expanded={expanded}
-							>
-								Dashboard
-							</span>
-						</Link>
-						<Link
-							className='flex items-center gap-3 rounded-lg px-4 aria-expanded:px-3 py-2 transition-all group hover:text-teal-500'
-							aria-expanded={expanded}
-							href='#'
-						>
-							<CardStackIcon
-								className='size-7 aria-expanded:size-5'
-								aria-expanded={expanded}
-							/>
-							<span
-								className='sr-only aria-expanded:not-sr-only'
-								aria-expanded={expanded}
-							>
-								Flashcards
-							</span>
-						</Link>
-						<Link
-							className='flex items-center gap-3 rounded-lg px-4 aria-expanded:px-3 py-2 transition-all group hover:text-teal-500'
-							aria-expanded={expanded}
-							href='#'
-						>
-							<StoreIcon
-								className='size-7 aria-expanded:size-5'
-								aria-expanded={expanded}
-							/>
-							<span
-								className='sr-only aria-expanded:not-sr-only'
-								aria-expanded={expanded}
-							>
-								Store
-							</span>
-						</Link>
-					</nav>
+					<SidebarNav />
 				</div>
 				{expanded ? (
 					<div className='mt-auto p-4 overflow-hidden'>
