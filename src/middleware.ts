@@ -5,7 +5,7 @@ export default function middleware(request: NextRequest) {
 	const token = request.cookies.get('authjs.session-token')
 	const pathname = request.nextUrl.pathname
 
-	if (pathname === '/auth' && token) {
+	if (pathname === '/auth' || (pathname === '/' && token)) {
 		return NextResponse.redirect(new URL(getUrl('/app')))
 	}
 
