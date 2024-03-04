@@ -10,7 +10,7 @@ import { LightningBoltIcon } from '@radix-ui/react-icons'
 
 export function UpgradeToProCard() {
 	return (
-		<Card className='h-42 w-72'>
+		<Card>
 			<CardHeader className='pb-4'>
 				<div className='flex flex-row gap-1 items-center'>
 					<LightningBoltIcon className='size-5 text-teal-400' />
