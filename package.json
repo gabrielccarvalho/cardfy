@@ -1,6 +1,7 @@
 {
-  "name": "micro-saas",
-  "version": "0.1.0",
+  "name": "cardify",
+  "author": "Gabriel Carvalho",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
