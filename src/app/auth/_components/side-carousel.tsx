@@ -21,7 +21,7 @@ export function SideCarousel() {
 	const [current, setCurrent] = useState(0)
 	const [count, setCount] = useState(0)
 
-	const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }))
+	const plugin = useRef(Autoplay({ delay: 10000, stopOnInteraction: true }))
 
 	useEffect(() => {
 		if (!api) return
@@ -50,12 +50,13 @@ export function SideCarousel() {
 					<CarouselItem className='w-full flex items-center justify-center -mr-4'>
 						<div className='bg-teal-200 w-full h-full flex flex-col items-center justify-center p-6 gap-8'>
 							<RocketIllustration className='max-w-screen-sm' />
-							<div className='flex flex-col gap-4'>
+							<div className='flex flex-col gap-4 items-center'>
 								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
-									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
+									Flashcards are the best way to learn
 								</h1>
 								<p className='text-teal-900 text-center max-w-screen-sm'>
-									Lorem ipsum dolor sit amet
+									Research has found that using flashcards leads to 150% better
+									retention than passive studying.
 								</p>
 							</div>
 						</div>
@@ -65,10 +66,11 @@ export function SideCarousel() {
 							<ClimbingIllustration className='max-w-screen-sm' />
 							<div className='flex flex-col gap-4'>
 								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
-									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
+									Experience a new era of learning
 								</h1>
 								<p className='text-teal-900 text-center max-w-screen-sm'>
-									Lorem ipsum dolor sit amet
+									Cardify is more than flashcarrds, its the best learning
+									platform.
 								</p>
 							</div>
 						</div>
@@ -78,10 +80,11 @@ export function SideCarousel() {
 							<DashboardIllustration className='max-w-screen-sm' />
 							<div className='flex flex-col gap-4'>
 								<h1 className='text-4xl text-teal-950 text-center max-w-lg'>
-									Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit
+									Track every step of your progress with great detail any time,
+									any where
 								</h1>
 								<p className='text-teal-900 text-center max-w-screen-sm'>
-									Lorem ipsum dolor sit amet
+									Don't wait to see your results, every day counts.
 								</p>
 							</div>
 						</div>
