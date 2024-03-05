@@ -4,7 +4,7 @@ import { SidebarNav } from './navigation'
 
 export function Sidebar() {
 	return (
-		<div className='hidden sticky top-0 h-screen border-r bg-card/20 lg:block'>
+		<div className='hidden h-screen border-r bg-card/20 lg:block'>
 			<div className='flex h-full max-h-screen flex-col gap-2'>
 				<SidebarHeading />
 				<div className='flex-1 overflow-auto py-2'>
