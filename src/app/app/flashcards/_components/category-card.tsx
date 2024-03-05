@@ -17,12 +17,8 @@ import { AlertDeleteCategory } from './alert-delete-category'
 export function CategoryCard({
 	category,
 }: { category: Category & { flashcards: Flashcard[] } }) {
-	// Soon type with to tRPC
 	return (
-		<Card
-			key={category.id}
-			className='max-w-72 h-96 overflow-hidden flex flex-col justify-between'
-		>
+		<Card className='max-w-72 h-96 overflow-hidden flex flex-col justify-between'>
 			<div className='flex items-center justify-center overflow-hidden max-h-48 roundend-t-md'>
 				<Image
 					src='/stock.png'

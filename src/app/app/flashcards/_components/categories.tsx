@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useQueryState } from 'nuqs'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { CategoriesSkeleton } from './categories-skeleton'
 import { CategoryCard } from './category-card'
 
 const searchFilterSchema = z.object({
@@ -49,7 +50,11 @@ export function Categories() {
 		return categories
 	}
 
-	const { data: categories, isSuccess } = useQuery({
+	const {
+		data: categories,
+		isSuccess,
+		isLoading,
+	} = useQuery({
 		queryKey: ['categories', searchParam],
 		queryFn: fetchCategories,
 	})
@@ -85,16 +90,18 @@ export function Categories() {
 					)}
 				</form>
 			</div>
-			<ScrollArea className='h-[calc(100vh-16rem)] w-full'>
-				<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 6xl:grid-cols-8 gap-4'>
-					{isSuccess &&
-						categories.map(
-							(
-								category, // Soon type with to tRPC
-							) => <CategoryCard key={category.id} category={category} />,
-						)}
-				</div>
-			</ScrollArea>
+			{isLoading ? (
+				<CategoriesSkeleton />
+			) : (
+				<ScrollArea className='h-[calc(100vh-16rem)] w-full'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 6xl:grid-cols-8 gap-4'>
+						{isSuccess &&
+							categories.map((category) => (
+								<CategoryCard key={category.id} category={category} />
+							))}
+					</div>
+				</ScrollArea>
+			)}
 		</main>
 	)
 }
