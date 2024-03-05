@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export function Header() {
 	return (
-		<header className='flex h-14 lg:h-[60px] items-center gap-4 border-b bg-card/20 px-6 py-2'>
+		<header className='sticky top-0 backdrop-blur-md flex h-14 lg:h-[60px] items-center gap-4 border-b bg-card/20 px-6 py-2'>
 			<Link
 				className='lg:hidden flex items-center gap-2 font-semibold'
 				href='/app'
