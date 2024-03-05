@@ -68,12 +68,12 @@ export function Searchbar() {
 	return (
 		<>
 			<div className='flex flex-1 ml-auto sm:flex-initial'>
-				<div className='relative'>
+				<div className='relative flex flex-1'>
 					<SearchIcon className='absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400' />
 					<Input
 						placeholder='Type a command or search...'
 						onFocus={() => setOpen(true)}
-						className='rounded-lg shadow-md border pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]'
+						className='rounded-lg shadow-md border pl-8 w-full sm:w-[300px]'
 					/>
 					<kbd className='absolute flex gap-0.5 justify-center right-2.5 top-1.5 h-6 rounded border bg-muted px-1.5 font-mono text-[10px] items-center'>
 						<span className='text-xs'>⌘</span>K
