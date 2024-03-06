@@ -1,12 +1,7 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { Flashcard } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -59,7 +54,7 @@ export function FlashCardComponent({ category }: { category: string }) {
 	if (!isSuccess) return
 	if (flashcards.length === 0) return <EmptyCategory />
 
-	const current = flashcards[0]
+	const [current] = flashcards
 
 	return (
 		<div className='flex flex-col w-full h-full items-center justify-center'>
@@ -81,57 +76,38 @@ export function FlashCardComponent({ category }: { category: string }) {
 						</Button>
 					) : (
 						<div className='flex mx-auto items-center justify-center gap-6'>
-							<TooltipProvider>
-								<Tooltip delayDuration={300}>
-									<TooltipTrigger asChild>
-										<Button
-											className='hover:bg-red-500 hover:text-red-50 dark:hover:bg-red-500'
-											onClick={() =>
-												graduateFlashcardFn({ id: current.id, answer: 'hard' })
-											}
-										>
-											Hard
-										</Button>
-									</TooltipTrigger>
-									<TooltipContent>
-										<p>Less than 1 minute</p>
-									</TooltipContent>
-								</Tooltip>
-							</TooltipProvider>
-							<TooltipProvider>
-								<Tooltip delayDuration={300}>
-									<TooltipTrigger asChild>
-										<Button
-											className='hover:bg-yellow-300 hover:text-yellow-950 dark:hover:bg-yellow-300'
-											onClick={() =>
-												graduateFlashcardFn({ id: current.id, answer: 'good' })
-											}
-										>
-											Good
-										</Button>
-									</TooltipTrigger>
-									<TooltipContent>
-										<p>Around 10 minutes</p>
-									</TooltipContent>
-								</Tooltip>
-							</TooltipProvider>
-							<TooltipProvider>
-								<Tooltip delayDuration={300}>
-									<TooltipTrigger asChild>
-										<Button
-											className='hover:bg-teal-300 hover:text-teal-950 dark:hover:bg-teal-300'
-											onClick={() =>
-												graduateFlashcardFn({ id: current.id, answer: 'easy' })
-											}
-										>
-											Easy
-										</Button>
-									</TooltipTrigger>
-									<TooltipContent>
-										<p>Around 4 days</p>
-									</TooltipContent>
-								</Tooltip>
-							</TooltipProvider>
+							<Button
+								className='hover:bg-gray-500 hover:text-gray-50 dark:hover:bg-gray-500'
+								onClick={() =>
+									graduateFlashcardFn({ id: current.id, answer: 'again' })
+								}
+							>
+								Again
+							</Button>
+							<Button
+								className='hover:bg-red-500 hover:text-red-50 dark:hover:bg-red-500'
+								onClick={() =>
+									graduateFlashcardFn({ id: current.id, answer: 'hard' })
+								}
+							>
+								Hard
+							</Button>
+							<Button
+								className='hover:bg-yellow-300 hover:text-yellow-950 dark:hover:bg-yellow-300'
+								onClick={() =>
+									graduateFlashcardFn({ id: current.id, answer: 'good' })
+								}
+							>
+								Good
+							</Button>
+							<Button
+								className='hover:bg-teal-300 hover:text-teal-950 dark:hover:bg-teal-300'
+								onClick={() =>
+									graduateFlashcardFn({ id: current.id, answer: 'easy' })
+								}
+							>
+								Easy
+							</Button>
 						</div>
 					)}
 				</CardFooter>
