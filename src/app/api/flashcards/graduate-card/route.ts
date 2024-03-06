@@ -26,10 +26,8 @@ import { NextRequest, NextResponse } from 'next/server'
 		nextReviewDate: new Date()
 
 	minimum values:
-		repetitions: 0
-		interval: 10 minutes
+		interval: 1
 		easeFactor: 1.3
-		nextReviewDate: new Date()
 
 */
 
@@ -55,10 +53,11 @@ export async function PUT(req: NextRequest) {
 			return NextResponse.json({ status: 404, message: 'Flashcard not found' })
 
 		let repetitions = flashcard.repetitions
-		let interval = flashcard.interval || 1
+		let interval = flashcard.interval
 		const answerIndex = ['again', 'hard', 'good', 'easy'].indexOf(answer)
-
 		let easeFactor = flashcard.easeFactor
+
+		const defaultMinimunInterval = 10 * 60 * 1000 // 10 minutes
 
 		if (easeFactor < 1.3) {
 			easeFactor = 1.3
@@ -99,9 +98,9 @@ export async function PUT(req: NextRequest) {
 				break
 		}
 
-		const nextReviewDate = new Date(Date.now() + interval * 10 * 60 * 1000)
-
-		console.log(repetitions)
+		const nextReviewDate = new Date(
+			Date.now() + interval * defaultMinimunInterval,
+		)
 
 		await prisma.flashcard.update({
 			where: { id },
