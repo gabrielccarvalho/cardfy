@@ -4,9 +4,15 @@ import { Button } from '@/components/ui/button'
 import { SearchIcon } from '@/components/ui/icons'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Category, Flashcard } from '@prisma/client'
-import { Cross2Icon } from '@radix-ui/react-icons'
+import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useQueryState } from 'nuqs'
 import { useForm } from 'react-hook-form'
@@ -63,15 +69,30 @@ export function Categories() {
 		<main className='flex flex-col space-y-6'>
 			<div className='relative flex gap-2 items-center'>
 				<form className='flex' onSubmit={handleSubmit(handleSearchFilter)}>
-					<Input
-						className='sm:w-[300px] md:w-[200px] lg:w-[300px]'
-						placeholder='Search a deck'
-						{...register('search')}
-					/>
+					<div className='flex gap-2'>
+						<Input
+							className='sm:w-[300px] md:w-[200px] lg:w-[300px] text-sm'
+							placeholder='Search a deck'
+							{...register('search')}
+						/>
+						<TooltipProvider>
+							<Tooltip delayDuration={300}>
+								<TooltipTrigger asChild>
+									<Button size='sm'>
+										<PlusIcon className='size-4' />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p className='text-xs'>Add new deck</p>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					</div>
 					<Button
 						variant='ghost'
 						type='submit'
-						className='hover:bg-transparent hover:underline underline-offset-4 hover:text-current'
+						size='sm'
+						className='hover:bg-transparent hover:underline underline-offset-4 hover:text-current text-sm'
 					>
 						<SearchIcon className='size-4 mr-2' />
 						Filter decks
@@ -79,6 +100,7 @@ export function Categories() {
 					{searchParam !== '' && searchParam !== null && (
 						<Button
 							variant='outline'
+							size='sm'
 							onClick={() => {
 								setSearchParam(null)
 								resetField('search')

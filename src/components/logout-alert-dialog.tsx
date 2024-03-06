@@ -12,7 +12,7 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { LogOutIcon } from '@/components/ui/icons'
+import { LockClosedIcon } from '@radix-ui/react-icons'
 import { signOut } from 'next-auth/react'
 
 export function LogoutAlertDialog() {
@@ -21,10 +21,11 @@ export function LogoutAlertDialog() {
 			<AlertDialogTrigger asChild>
 				<Button
 					variant='ghost'
-					className='flex items-center w-full justify-start p-2'
+					size='sm'
+					className='flex items-center w-full justify-start px-2 text-sm font-normal'
 				>
+					<LockClosedIcon className='size-3 mr-3' />
 					Sign Out
-					<LogOutIcon className='size-4 ml-2' />
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>

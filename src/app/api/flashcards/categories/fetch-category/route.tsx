@@ -3,7 +3,9 @@ import { prisma } from '@/services/database'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
-	const categoryId = req.nextUrl.searchParams.get('category')
+	const searchParams = req.nextUrl.searchParams
+	const id = searchParams.get('id') || ''
+
 	try {
 		const session = await auth()
 		if (!session)
@@ -12,19 +14,19 @@ export async function GET(req: NextRequest) {
 				message: 'User not authenticated',
 			})
 
-		const flashcards = await prisma.flashcard.findMany({
+		const category = await prisma.category.findUnique({
 			where: {
+				id,
 				userId: session.user?.id,
-				categoryId: categoryId || undefined,
-				nextReviewDate: {
-					lt: new Date(),
-				},
+			},
+			include: {
+				flashcards: true,
 			},
 		})
 
 		prisma.$disconnect()
-		return NextResponse.json({ success: true, flashcards })
+		return NextResponse.json({ success: true, category })
 	} catch (error) {
-		return NextResponse.json({ message: 'Error fetching flashcards', error })
+		return NextResponse.json({ message: 'Error fetching categories', error })
 	}
 }

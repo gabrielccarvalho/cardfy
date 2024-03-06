@@ -9,7 +9,10 @@ export function CategoriesSkeleton() {
 		<ScrollArea className='h-[calc(100vh-16rem)] w-full'>
 			<div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 6xl:grid-cols-8 gap-4'>
 				{Array.from({ length: 6 }).map((_, i) => (
-					<Card className='max-w-72 h-96 overflow-hidden flex flex-col justify-between'>
+					<Card
+						key={i}
+						className='max-w-72 h-96 overflow-hidden flex flex-col justify-between'
+					>
 						<div className='flex items-center justify-center overflow-hidden max-h-48 roundend-t-md'>
 							<Skeleton className='rounded-t-md h-[300px] w-[300px]' />
 						</div>

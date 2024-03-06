@@ -1,14 +1,14 @@
-import { Header } from '@/components/header'
-import { Sidebar } from '@/components/sidebar'
+import { auth } from '@/services/auth'
+import { PropsWithChildren } from 'react'
+import { MainSidebar } from './_components/main-sidebar'
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({ children }: PropsWithChildren) {
+	const session = await auth()
+
 	return (
-		<div className='flex min-h-screen w-full'>
-			<Sidebar />
-			<div className='flex flex-col w-full'>
-				<Header />
-				{children}
-			</div>
+		<div className='grid grid-cols-[16rem_1fr]'>
+			<MainSidebar user={session?.user} />
+			<main>{children}</main>
 		</div>
 	)
 }

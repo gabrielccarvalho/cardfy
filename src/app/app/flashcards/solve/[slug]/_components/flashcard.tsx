@@ -57,7 +57,7 @@ export function FlashCardComponent({ category }: { category: string }) {
 	const [current] = flashcards
 
 	return (
-		<div className='flex flex-col w-full h-full items-center justify-center'>
+		<div className='flex flex-col w-full items-center'>
 			<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] shadow-md z-10'>
 				<CardContent className='flex flex-1 items-center justify-center'>
 					<p className='text-xl font-bold text-center'>

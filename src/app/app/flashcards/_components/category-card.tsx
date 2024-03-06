@@ -62,8 +62,8 @@ export function CategoryCard({
 				</p>
 			</CardContent>
 			<div className='p-4 flex flex-1 justify-between items-end'>
-				<Link href={`/app/flashcards/solve/${category.id}`}>
-					<Button>Study</Button>
+				<Link href={`/app/flashcards/overview/${category.id}`}>
+					<Button>View Deck</Button>
 				</Link>
 				<span className='text-xs text-gray-500 dark:text-gray-400'>
 					{category.flashcards.length === 1

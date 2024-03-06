@@ -109,9 +109,26 @@ export function LogOutIcon(props: React.SVGProps<SVGSVGElement>) {
 			stroke='currentColor'
 			strokeLinecap='round'
 			strokeLinejoin='round'
-			strokeWidth='1.25'
 		>
 			<path d='M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m7 14l5-5-5-5m5 5H9' />
+		</svg>
+	)
+}
+
+export function ArrowBack(props: React.SVGProps<SVGSVGElement>) {
+	return (
+		<svg
+			{...props}
+			xmlns='http://www.w3.org/2000/svg'
+			width='24'
+			height='24'
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		>
+			<path d='M18 15h-6v4l-7-7 7-7v4h6v6z' />
 		</svg>
 	)
 }

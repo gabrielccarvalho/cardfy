@@ -1,3 +1,19 @@
+import {
+	Page,
+	PageHeader,
+	PageHeaderTitle,
+	PageMain,
+} from '@/components/dashboard/page'
+
 export default function Dashboard() {
-	return <main className='flex flex-col p-4' />
+	return (
+		<Page>
+			<PageHeader>
+				<PageHeaderTitle>Dashboard</PageHeaderTitle>
+			</PageHeader>
+			<PageMain>
+				<h2>dashboard</h2>
+			</PageMain>
+		</Page>
+	)
 }
