@@ -54,8 +54,8 @@ export async function PUT(req: NextRequest) {
 		if (!flashcard)
 			return NextResponse.json({ status: 404, message: 'Flashcard not found' })
 
-		let repetitions = 0
-		let interval = 1
+		let repetitions = flashcard.repetitions
+		let interval = flashcard.interval || 1
 		const answerIndex = ['again', 'hard', 'good', 'easy'].indexOf(answer)
 
 		let easeFactor = flashcard.easeFactor
@@ -87,19 +87,21 @@ export async function PUT(req: NextRequest) {
 				break
 			case 'hard':
 				interval = Math.round(flashcard.interval * flashcard.easeFactor)
-				repetitions += 1
 				easeFactor +=
 					0.1 - (3 - answerIndex) * (0.08 + (3 - answerIndex) * 0.02)
+				repetitions += 1
 				break
 			case 'again':
-				repetitions = 0
 				interval = 1
 				easeFactor +=
 					0.1 - (3 - answerIndex) * (0.08 + (3 - answerIndex) * 0.02)
+				repetitions = 0
 				break
 		}
 
 		const nextReviewDate = new Date(Date.now() + interval * 10 * 60 * 1000)
+
+		console.log(repetitions)
 
 		await prisma.flashcard.update({
 			where: { id },
