@@ -30,7 +30,7 @@ export function CategoriesSkeleton() {
 							</div>
 						</CardContent>
 						<div className='p-4 flex flex-1 justify-between items-end'>
-							<Button disabled>Estudar Pacote</Button>
+							<Button disabled>Study</Button>
 							<Skeleton className='h-4 w-16' />
 						</div>
 					</Card>

@@ -1,8 +1,9 @@
 import { auth } from '@/services/auth'
 import { prisma } from '@/services/database'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+	const categoryId = req.nextUrl.searchParams.get('category') as string
 	try {
 		const session = await auth()
 		if (!session)
@@ -14,6 +15,10 @@ export async function GET() {
 		const flashcards = await prisma.flashcard.findMany({
 			where: {
 				userId: session.user?.id,
+				categoryId,
+				nextReviewDate: {
+					lt: new Date(),
+				},
 			},
 		})
 

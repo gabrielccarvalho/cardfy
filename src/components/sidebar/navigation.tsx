@@ -10,7 +10,7 @@ export function SidebarNav() {
 	return (
 		<nav className='grid items-start px-4 text-sm font-medium transition-all duration-500 space-y-2'>
 			<Link
-				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
+				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500 dark:hover:text-teal-300 dark:aria-selected:text-teal-300'
 				aria-selected={pathname === '/app'}
 				href='/app'
 			>
@@ -18,7 +18,7 @@ export function SidebarNav() {
 				Dashboard
 			</Link>
 			<Link
-				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
+				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500 dark:hover:text-teal-300 dark:aria-selected:text-teal-300'
 				aria-selected={pathname.startsWith('/app/flashcards')}
 				href='/app/flashcards'
 			>
@@ -26,7 +26,7 @@ export function SidebarNav() {
 				Flashcards
 			</Link>
 			<Link
-				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500'
+				className='flex items-center gap-3 rounded-lg px-3 py-2 transition-all group hover:text-teal-500 aria-selected:text-teal-500 dark:hover:text-teal-300 dark:aria-selected:text-teal-300'
 				aria-selected={pathname.startsWith('/app/store')}
 				href='/app/store'
 			>

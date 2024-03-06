@@ -12,6 +12,7 @@ import {
 import { Category, Flashcard } from '@prisma/client'
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
+import Link from 'next/link'
 import { AlertDeleteCategory } from './alert-delete-category'
 
 export function CategoryCard({
@@ -45,7 +46,7 @@ export function CategoryCard({
 						<DropdownMenuContent>
 							<DropdownMenuLabel>Actions</DropdownMenuLabel>
 							<DropdownMenuGroup>
-								<DropdownMenuItem>Edit</DropdownMenuItem>
+								<DropdownMenuItem disabled>Edit</DropdownMenuItem>
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator />
 							<DropdownMenuGroup>
@@ -61,7 +62,9 @@ export function CategoryCard({
 				</p>
 			</CardContent>
 			<div className='p-4 flex flex-1 justify-between items-end'>
-				<Button>Estudar Pacote</Button>
+				<Link href={`/app/flashcards/solve/${category.id}`}>
+					<Button>Study</Button>
+				</Link>
 				<span className='text-xs text-gray-500 dark:text-gray-400'>
 					{category.flashcards.length === 1
 						? '1 card'
