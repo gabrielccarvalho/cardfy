@@ -44,7 +44,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
 					</div>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='w-56' align='end' forceMount>
+			<DropdownMenuContent className='w-60' align='start' forceMount>
 				<DropdownMenuLabel>Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>

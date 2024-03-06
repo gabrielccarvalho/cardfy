@@ -6,7 +6,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 	const session = await auth()
 
 	return (
-		<div className='grid grid-cols-[16rem_1fr]'>
+		<div className='grid grid-cols-[20rem_1fr]'>
 			<MainSidebar user={session?.user} />
 			<main>{children}</main>
 		</div>
