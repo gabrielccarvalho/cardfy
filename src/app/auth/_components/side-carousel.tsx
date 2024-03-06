@@ -69,7 +69,7 @@ export function SideCarousel() {
 									Experience a new era of learning
 								</h1>
 								<p className='text-teal-900 text-center max-w-screen-sm'>
-									Cardify is more than flashcarrds, its the best learning
+									Cardfy is more than flashcarrds, its the best learning
 									platform.
 								</p>
 							</div>

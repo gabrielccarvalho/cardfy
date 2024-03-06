@@ -19,7 +19,7 @@ export function Header() {
 					alt='logo'
 					className='shadow-sm border border-border rounded'
 				/>
-				<span className='sr-only'>Cardify</span>
+				<span className='sr-only'>Cardfy</span>
 			</Link>
 			<Searchbar />
 			<div className='flex items-center gap-2 h-full'>

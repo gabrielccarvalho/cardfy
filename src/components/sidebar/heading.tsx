@@ -24,7 +24,7 @@ export function SidebarHeading() {
 					alt='logo'
 					className='shadow-sm border border-border rounded'
 				/>
-				<span>Cardify</span>
+				<span>Cardfy</span>
 			</Link>
 			<TooltipProvider delayDuration={300}>
 				<Tooltip>

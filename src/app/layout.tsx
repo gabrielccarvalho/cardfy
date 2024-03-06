@@ -9,7 +9,7 @@ import { Providers } from './providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-	title: 'Cardify | The best flashcards app',
+	title: 'Cardfy | The best flashcards app',
 	description: 'The best flashcards app',
 }
 
