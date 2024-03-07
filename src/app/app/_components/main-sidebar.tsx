@@ -28,7 +28,8 @@ export function MainSidebar({ user }: MainSidebarProps) {
 	const pathname = usePathname()
 
 	const isActive = (path: string) => {
-		return pathname === path
+		if (path === '/app') return pathname === path
+		return pathname.startsWith(path)
 	}
 
 	return (
