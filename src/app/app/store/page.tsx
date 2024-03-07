@@ -1,3 +1,9 @@
-export default function Store() {
-	return <h2>store</h2>
+import { PageLayout } from '@/components/dashboard/page'
+
+export default function StorePage() {
+	return (
+		<PageLayout title='Store'>
+			<h2>store</h2>
+		</PageLayout>
+	)
 }

@@ -1,7 +1,12 @@
+import { PageLayout } from '@/components/dashboard/page'
 import { CategoryInformation } from './_components/category-information'
 
-export default function Overview({ params }: { params: { slug: string } }) {
+export default function OverviewPage({ params }: { params: { slug: string } }) {
 	const category = params.slug
 
-	return <CategoryInformation id={category} />
+	return (
+		<PageLayout title='Deck Overview'>
+			<CategoryInformation id={category} />
+		</PageLayout>
+	)
 }

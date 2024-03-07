@@ -45,3 +45,21 @@ export function PageHeaderNav({ className, children }: PageGenericProps) {
 export function PageMain({ className, children }: PageGenericProps) {
 	return <main className={cn(['p-6', className])}>{children}</main>
 }
+
+type PageLayoutProps = {
+	title: string
+}
+
+export function PageLayout({
+	title,
+	children,
+}: PageGenericProps<PageLayoutProps>) {
+	return (
+		<Page>
+			<PageHeader>
+				<PageHeaderTitle>{title}</PageHeaderTitle>
+			</PageHeader>
+			<PageMain>{children}</PageMain>
+		</Page>
+	)
+}
