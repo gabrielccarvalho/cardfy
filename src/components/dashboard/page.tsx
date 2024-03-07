@@ -3,22 +3,31 @@ import { Searchbar } from '../searchbar'
 import { ModeToggle } from '../ui/mode-toggle'
 import { Separator } from '../ui/separator'
 
-export type PageGenericProps<T = unknown> = {
+export type PageGenericProps<T = React.HTMLAttributes<HTMLElement>> = {
 	children: React.ReactNode
 	className?: string
 } & T
 
-export function Page({ className, children }: PageGenericProps) {
-	return <section className={cn(['h-screen', className])}>{children}</section>
+export function Page({ className, children, ...props }: PageGenericProps) {
+	return (
+		<section className={cn(['h-screen', className])} {...props}>
+			{children}
+		</section>
+	)
 }
 
-export function PageHeader({ className, children }: PageGenericProps) {
+export function PageHeader({
+	className,
+	children,
+	...props
+}: PageGenericProps) {
 	return (
 		<header
 			className={cn([
 				'flex items-center h-14 px-6 border-b border-border',
 				className,
 			])}
+			{...props}
 		>
 			{children}
 			<div className='flex ml-auto items-center gap-2'>
@@ -30,20 +39,39 @@ export function PageHeader({ className, children }: PageGenericProps) {
 	)
 }
 
-export function PageHeaderTitle({ className, children }: PageGenericProps) {
+export function PageHeaderTitle({
+	className,
+	children,
+	...props
+}: PageGenericProps) {
 	return (
-		<h1 className={cn(['text-muted-foreground uppercase', className])}>
+		<h1
+			className={cn(['text-muted-foreground uppercase', className])}
+			{...props}
+		>
 			{children}
 		</h1>
 	)
 }
 
-export function PageHeaderNav({ className, children }: PageGenericProps) {
-	return <nav className={cn(['', className])}>{children}</nav>
+export function PageHeaderNav({
+	className,
+	children,
+	...props
+}: PageGenericProps) {
+	return (
+		<nav className={cn(['', className])} {...props}>
+			{children}
+		</nav>
+	)
 }
 
-export function PageMain({ className, children }: PageGenericProps) {
-	return <main className={cn(['p-6', className])}>{children}</main>
+export function PageMain({ className, children, ...props }: PageGenericProps) {
+	return (
+		<main className={cn(['p-6', className])} {...props}>
+			{children}
+		</main>
+	)
 }
 
 type PageLayoutProps = {
