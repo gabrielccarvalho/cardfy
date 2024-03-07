@@ -76,7 +76,6 @@ model Flashcard {
 model Category {
   id          String      @id @default(cuid())
   name        String
-  slug        String
   description String?
   flashcards  Flashcard[]
   userId      String

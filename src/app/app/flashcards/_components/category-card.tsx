@@ -23,7 +23,7 @@ export function CategoryCard({
 			<div className='flex items-center justify-center overflow-hidden max-h-48 roundend-t-md'>
 				<Image
 					src='/stock.png'
-					alt={category.slug}
+					alt={category.id}
 					width={300}
 					height={300}
 					quality={10}

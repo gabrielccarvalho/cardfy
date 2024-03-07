@@ -4,19 +4,15 @@ import { Button } from '@/components/ui/button'
 import { SearchIcon } from '@/components/ui/icons'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Category, Flashcard } from '@prisma/client'
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useQueryState } from 'nuqs'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { AddCategoryModal } from './add-category-modal'
 import { CategoriesSkeleton } from './categories-skeleton'
 import { CategoryCard } from './category-card'
 
@@ -27,7 +23,9 @@ const searchFilterSchema = z.object({
 type SearchFilterSchema = z.infer<typeof searchFilterSchema>
 
 export function Categories() {
+	const queryClient = useQueryClient()
 	const [searchParam, setSearchParam] = useQueryState('search')
+	const [open, setOpen] = useState(false)
 
 	const { register, handleSubmit, resetField } = useForm<SearchFilterSchema>({
 		resolver: zodResolver(searchFilterSchema),
@@ -65,6 +63,15 @@ export function Categories() {
 		queryFn: fetchCategories,
 	})
 
+	const addCategory = (category: Category) => {
+		queryClient.setQueryData(
+			['categories', searchParam],
+			(oldData: Category[]) => {
+				return [...oldData, category]
+			},
+		)
+	}
+
 	return (
 		<main className='flex flex-col space-y-6'>
 			<div className='relative flex gap-2 items-center'>
@@ -75,18 +82,11 @@ export function Categories() {
 							placeholder='Search a deck'
 							{...register('search')}
 						/>
-						<TooltipProvider>
-							<Tooltip delayDuration={300}>
-								<TooltipTrigger asChild>
-									<Button size='sm'>
-										<PlusIcon className='size-4' />
-									</Button>
-								</TooltipTrigger>
-								<TooltipContent>
-									<p className='text-xs'>Add new deck</p>
-								</TooltipContent>
-							</Tooltip>
-						</TooltipProvider>
+						<AddCategoryModal onSuccess={addCategory}>
+							<Button size='sm'>
+								<PlusIcon className='size-4' />
+							</Button>
+						</AddCategoryModal>
 					</div>
 					<Button
 						variant='ghost'
