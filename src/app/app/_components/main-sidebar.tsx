@@ -14,7 +14,7 @@ import {
 } from '@/components/dashboard/sidebar'
 import { Logo } from '@/components/logo'
 import { StoreIcon } from '@/components/ui/icons'
-import { UpgradeToProCard } from '@/components/upgrade-to-pro'
+// import { UpgradeToProCard } from '@/components/upgrade-to-pro'
 import { CardStackIcon, DashboardIcon } from '@radix-ui/react-icons'
 import { Session } from 'next-auth'
 import { usePathname } from 'next/navigation'
@@ -42,18 +42,18 @@ export function MainSidebar({ user }: MainSidebarProps) {
 				<SidebarNav>
 					<SidebarNavMain>
 						<SidebarNavLink href='/app' active={isActive('/app')}>
-							<DashboardIcon className='size-3 mr-3' />
+							<DashboardIcon className='size-5 mr-3' />
 							Dashboard
 						</SidebarNavLink>
 						<SidebarNavLink
 							href='/app/flashcards'
 							active={isActive('/app/flashcards')}
 						>
-							<CardStackIcon className='size-3 mr-3' />
+							<CardStackIcon className='size-5 mr-3' />
 							Flashcards
 						</SidebarNavLink>
 						<SidebarNavLink href='/app/store' active={isActive('/app/store')}>
-							<StoreIcon className='size-3 mr-3' />
+							<StoreIcon className='size-5 mr-3' />
 							Store
 						</SidebarNavLink>
 					</SidebarNavMain>
@@ -64,19 +64,19 @@ export function MainSidebar({ user }: MainSidebarProps) {
 						<SidebarNavHeaderTitle>Extra Links</SidebarNavHeaderTitle>
 					</SidebarNavHeader>
 					<SidebarNavMain>
-						<SidebarNavLink href='/' active={isActive('/')}>
+						<SidebarNavLink href='#' active={isActive('#')}>
 							Need any help?
 						</SidebarNavLink>
-						<SidebarNavLink href='/' active={isActive('/')}>
+						<SidebarNavLink href='#' active={isActive('#')}>
 							Site
 						</SidebarNavLink>
 					</SidebarNavMain>
 				</SidebarNav>
 			</SidebarMain>
-
+			{/* 
 			<SidebarMain className='my-6'>
 				<UpgradeToProCard />
-			</SidebarMain>
+			</SidebarMain> */}
 
 			<SidebarFooter>
 				<UserDropdown user={user} />

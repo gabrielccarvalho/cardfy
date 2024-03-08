@@ -56,18 +56,19 @@ model VerificationToken {
 }
 
 model Flashcard {
-  id             String   @id @default(cuid())
-  question       String
-  answer         String
-  slug           String
-  categoryId     String
-  category       Category @relation(fields: [categoryId], references: [id])
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  interval       Float    @default(1)
-  repetitions    Int      @default(0)
-  easeFactor     Float    @default(2.5)
-  nextReviewDate DateTime @default(now())
+  id               String   @id @default(cuid())
+  question         String
+  answer           String
+  slug             String
+  extraInformation String?
+  categoryId       String
+  category         Category @relation(fields: [categoryId], references: [id])
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interval         Float    @default(1)
+  repetitions      Int      @default(0)
+  easeFactor       Float    @default(2.5)
+  nextReviewDate   DateTime @default(now())
 
   @@index([categoryId])
   @@index([userId])

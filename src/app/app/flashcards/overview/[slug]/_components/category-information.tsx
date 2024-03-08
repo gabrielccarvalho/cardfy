@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Category, Flashcard } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export function CategoryInformation({ id }: { id: string }) {
@@ -53,7 +54,10 @@ export function CategoryInformation({ id }: { id: string }) {
 			<span>Learning cards: {learningCard} </span>
 			<span>Review cards: {reviewCards}</span>
 
-			<div>
+			<div className='flex gap-2'>
+				<Link href={`/app/flashcards/create/${id}`}>
+					<Button>Create New</Button>
+				</Link>
 				<Button
 					disabled={availableToLearn === 0}
 					onClick={() => push(`/app/flashcards/solve/${id}`)}
