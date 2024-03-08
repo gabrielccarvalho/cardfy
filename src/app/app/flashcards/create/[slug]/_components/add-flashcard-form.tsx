@@ -2,15 +2,15 @@
 
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { LockClosedIcon, LockOpen2Icon } from '@radix-ui/react-icons'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { CardTypeSelector } from './card-type'
 import { cardTypes, types } from './data/card-types'
+import { LockField } from './lock-field'
 
 const formSchema = z.object({
 	front: z.string().min(1, {
@@ -25,9 +25,14 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>
 
 export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
-	const { register, handleSubmit, formState } = useForm<FormSchemaType>({
-		resolver: zodResolver(formSchema),
-	})
+	const [frontLocked, setFrontLocked] = useState(false)
+	const [backLocked, setBackLocked] = useState(false)
+	const [extraInfoLocked, setExtraInfoLocked] = useState(false)
+
+	const { register, handleSubmit, formState, resetField } =
+		useForm<FormSchemaType>({
+			resolver: zodResolver(formSchema),
+		})
 
 	async function handleCreateFlashcard(data: FormSchemaType) {
 		const res = await fetch('/api/flashcards/create-card', {
@@ -42,6 +47,16 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 				categoryId,
 			}),
 		})
+
+		if (!frontLocked) {
+			resetField('front')
+		}
+		if (!backLocked) {
+			resetField('back')
+		}
+		if (!extraInfoLocked) {
+			resetField('extraInformation')
+		}
 
 		if (res.ok) {
 			toast.success('Flashcard created!', {
@@ -63,11 +78,7 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 					<div className='flex flex-1 flex-col'>
 						<div className='flex items-center justify-between px-2 py-2'>
 							<Label htmlFor='front'>Front</Label>
-							<div className='flex gap-2 items-center text-sm'>
-								<LockClosedIcon className='w-4 h-4' />
-								Locked
-								<Switch checked={true} />
-							</div>
+							<LockField locked={frontLocked} setLocked={setFrontLocked} />
 						</div>
 						<Textarea
 							placeholder='Type the front of your card here...'
@@ -88,11 +99,7 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 					<div>
 						<div className='flex items-center justify-between px-2 py-2'>
 							<Label htmlFor='back'>Back</Label>
-							<div className='flex gap-2 items-center text-sm'>
-								<LockOpen2Icon className='w-4 h-4' />
-								Unlocked
-								<Switch checked={false} />
-							</div>
+							<LockField locked={backLocked} setLocked={setBackLocked} />
 						</div>
 						<Textarea
 							placeholder='Type the back of your card here...'
@@ -113,11 +120,10 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 					<div>
 						<div className='flex items-center justify-between px-2 py-2'>
 							<Label htmlFor='extra-information'>Extra Information</Label>
-							<div className='flex gap-2 items-center text-sm'>
-								<LockOpen2Icon className='w-4 h-4' />
-								Unlocked
-								<Switch checked={false} />
-							</div>
+							<LockField
+								locked={extraInfoLocked}
+								setLocked={setExtraInfoLocked}
+							/>
 						</div>
 						<Textarea
 							placeholder='Add any extra information you want here...'
