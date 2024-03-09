@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams
 	const search = searchParams.get('search') || ''
+	const onlyParents = searchParams.get('onlyParents') === 'true'
 
 	try {
 		const session = await auth()
@@ -15,19 +16,23 @@ export async function GET(req: NextRequest) {
 			})
 
 		const categories = await prisma.category.findMany({
+			include: {
+				flashcards: true,
+			},
 			where: {
 				userId: session.user?.id,
 				name: {
 					contains: search,
 				},
-			},
-			include: {
-				flashcards: true,
+				parentId: onlyParents ? null : undefined,
 			},
 		})
 
 		prisma.$disconnect()
-		return NextResponse.json({ success: true, categories })
+		return NextResponse.json({
+			success: true,
+			categories,
+		})
 	} catch (error) {
 		return NextResponse.json({ message: 'Error fetching categories', error })
 	}
