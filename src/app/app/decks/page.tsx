@@ -1,10 +1,10 @@
 import { PageLayout } from '@/components/dashboard/page'
-import { Categories } from './_components/categories'
+import { DecksPage } from './_components/deck-page'
 
-export default function DecksPage() {
+export default function DecksListingPage() {
 	return (
 		<PageLayout title='Decks'>
-			<Categories />
+			<DecksPage />
 		</PageLayout>
 	)
 }

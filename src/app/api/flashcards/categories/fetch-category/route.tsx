@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
 			},
 			include: {
 				flashcards: true,
+				subCategories: true,
 			},
 		})
 

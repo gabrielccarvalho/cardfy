@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
 		const categories = await prisma.category.findMany({
 			include: {
 				flashcards: true,
+				subCategories: true,
 			},
 			where: {
 				userId: session.user?.id,

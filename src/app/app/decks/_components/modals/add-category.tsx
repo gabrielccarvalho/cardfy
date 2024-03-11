@@ -104,7 +104,7 @@ export function AddCategoryModal({ children, onSuccess }: Props) {
 					)}
 				>
 					<div className='grid gap-4 py-4'>
-						<div className='grid grid-cols-4 items-center gap-4'>
+						<div className='grid items-center grid-cols-4 gap-4'>
 							<Label htmlFor='name' className='text-right'>
 								Title
 							</Label>
@@ -118,13 +118,13 @@ export function AddCategoryModal({ children, onSuccess }: Props) {
 							/>
 							<div className='col-span-3 col-start-2'>
 								{formState.errors.name && (
-									<p className='text-red-500 text-sm'>
+									<p className='text-sm text-red-500'>
 										{formState.errors.name.message}
 									</p>
 								)}
 							</div>
 						</div>
-						<div className='grid grid-cols-4 items-center gap-4'>
+						<div className='grid items-center grid-cols-4 gap-4'>
 							<Label htmlFor='description' className='text-right'>
 								Description
 							</Label>

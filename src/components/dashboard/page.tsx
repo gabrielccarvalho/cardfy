@@ -30,7 +30,7 @@ export function PageHeader({
 			{...props}
 		>
 			{children}
-			<div className='flex ml-auto items-center gap-2'>
+			<div className='flex items-center gap-2 ml-auto'>
 				<Searchbar />
 				<Separator orientation='vertical' className='h-8' />
 				<ModeToggle />

@@ -4,9 +4,9 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function FlashCardSkeleton() {
 	return (
-		<div className='flex flex-col w-full h-full items-center justify-center'>
+		<div className='flex flex-col items-center justify-center w-full h-full'>
 			<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] shadow-md z-10'>
-				<CardContent className='flex flex-col flex-1 w-full justify-center space-y-2'>
+				<CardContent className='flex flex-col justify-center flex-1 w-full space-y-2'>
 					<Skeleton className='w-full h-6' />
 					<Skeleton className='w-full h-6' />
 					<Skeleton className='w-2/3 h-6' />

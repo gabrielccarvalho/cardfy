@@ -75,12 +75,15 @@ model Flashcard {
 }
 
 model Category {
-  id          String      @id @default(cuid())
-  name        String
-  description String?
-  flashcards  Flashcard[]
-  userId      String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String      @id @default(cuid())
+  name           String
+  description    String?
+  flashcards     Flashcard[]
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parentId       String?
+  parentCategory Category?   @relation("CategorySubcategories", fields: [parentId], references: [id])
+  subCategories  Category[]  @relation("CategorySubcategories")
 
   @@index([userId])
 }

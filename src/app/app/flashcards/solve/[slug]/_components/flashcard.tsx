@@ -5,7 +5,6 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Flashcard } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { EmptyCategory } from './empty-category'
 import { FlashCardSkeleton } from './flashcard-skeleton'
 
 export function FlashCardComponent({ category }: { category: string }) {
@@ -52,14 +51,14 @@ export function FlashCardComponent({ category }: { category: string }) {
 
 	if (isLoading) return <FlashCardSkeleton />
 	if (!isSuccess) return
-	if (flashcards.length === 0) return <EmptyCategory />
+	if (flashcards.length === 0) return <div />
 
 	const [current] = flashcards
 
 	return (
-		<div className='flex flex-col w-full items-center'>
+		<div className='flex flex-col items-center w-full'>
 			<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] shadow-md z-10'>
-				<CardContent className='flex flex-1 items-center justify-center'>
+				<CardContent className='flex items-center justify-center flex-1'>
 					<p className='text-xl font-bold text-center'>
 						{reveal ? current.answer : current.question}
 					</p>
@@ -75,7 +74,7 @@ export function FlashCardComponent({ category }: { category: string }) {
 							Reveal answer
 						</Button>
 					) : (
-						<div className='flex mx-auto items-center justify-center gap-6'>
+						<div className='flex items-center justify-center gap-6 mx-auto'>
 							<Button
 								className='hover:bg-gray-500 hover:text-gray-50 dark:hover:bg-gray-500'
 								onClick={() =>

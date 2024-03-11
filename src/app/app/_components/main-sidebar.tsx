@@ -42,18 +42,15 @@ export function MainSidebar({ user }: MainSidebarProps) {
 				<SidebarNav>
 					<SidebarNavMain>
 						<SidebarNavLink href='/app' active={isActive('/app')}>
-							<DashboardIcon className='size-5 mr-3' />
+							<DashboardIcon className='mr-3 size-5' />
 							Dashboard
 						</SidebarNavLink>
-						<SidebarNavLink
-							href='/app/flashcards'
-							active={isActive('/app/flashcards')}
-						>
-							<CardStackIcon className='size-5 mr-3' />
-							Flashcards
+						<SidebarNavLink href='/app/decks' active={isActive('/app/decks')}>
+							<CardStackIcon className='mr-3 size-5' />
+							Decks
 						</SidebarNavLink>
 						<SidebarNavLink href='/app/store' active={isActive('/app/store')}>
-							<StoreIcon className='size-5 mr-3' />
+							<StoreIcon className='mr-3 size-5' />
 							Store
 						</SidebarNavLink>
 					</SidebarNavMain>
