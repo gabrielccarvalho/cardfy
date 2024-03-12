@@ -22,13 +22,64 @@ type Props = {
 
 export function DecksList({ category, index }: Props) {
 	const [open, setOpen] = useState(false)
-	const dueFlashcards = category.flashcards?.filter(
-		(flashcard) => new Date(flashcard.nextReviewDate) <= new Date(),
-	)
 
-	const newFlashcards = category.flashcards?.filter(
-		(flashcard) => flashcard.repetitions === 0,
-	)
+	const getDueFlashcardsCount = (
+		category: Category & {
+			flashcards: Flashcard[]
+			subCategories?: SubCategory[]
+		},
+	): number => {
+		let count = 0
+		const dueFlashcards =
+			category.flashcards?.filter(
+				(flashcard) => new Date(flashcard.nextReviewDate) <= new Date(),
+			) ?? []
+		count += dueFlashcards.length
+
+		for (const subCategory of category.subCategories ?? []) {
+			count += getDueFlashcardsCount(subCategory)
+		}
+
+		return count
+	}
+
+	const getNewFlashcardsCount = (
+		category: Category & {
+			flashcards: Flashcard[]
+			subCategories?: SubCategory[]
+		},
+	): number => {
+		let count = 0
+		const newFlashcards =
+			category.flashcards?.filter((flashcard) => flashcard.repetitions === 0) ??
+			[]
+		count += newFlashcards.length
+
+		for (const subCategory of category.subCategories ?? []) {
+			count += getNewFlashcardsCount(subCategory)
+		}
+
+		return count
+	}
+
+	const getFlashcardsCount = (
+		category: Category & {
+			flashcards: Flashcard[]
+			subCategories?: SubCategory[]
+		},
+	): number => {
+		let count = category.flashcards?.length ?? 0
+
+		for (const subCategory of category.subCategories ?? []) {
+			count += getFlashcardsCount(subCategory)
+		}
+
+		return count
+	}
+
+	const dueFlashcardsCount = getDueFlashcardsCount(category)
+	const newFlashcardsCount = getNewFlashcardsCount(category)
+	const flashcardsCount = getFlashcardsCount(category)
 
 	return (
 		<Draggable draggableId={category.id} index={index} key={category.id}>
@@ -50,19 +101,21 @@ export function DecksList({ category, index }: Props) {
 							>
 								<ChevronRightIcon className='size-4' />
 							</Button>
-							<Link href={`/decks/${category.id}`}>
+							<Link href={`/app/flashcards/solve/${category.id}`}>
 								<h3 className='font-bold text-md'>{category.name}</h3>
 							</Link>
 						</div>
 						<div className='flex items-center gap-2'>
 							<span className='text-sm font-semibold text-gray-500'>
-								{category.flashcards?.length || 0} cards
+								{flashcardsCount === 1
+									? `${flashcardsCount} card`
+									: `${flashcardsCount} cards`}
 							</span>
 							<span className='text-sm font-semibold text-emerald-500'>
-								{dueFlashcards?.length || 0} due
+								{dueFlashcardsCount} due
 							</span>
 							<span className='text-sm font-semibold text-indigo-500'>
-								{newFlashcards?.length || 0} new
+								{newFlashcardsCount} new
 							</span>
 							<Button size='icon' variant='ghost'>
 								<MixerHorizontalIcon className='size-4' />
