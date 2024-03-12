@@ -47,7 +47,7 @@ export function AddCategoryModal({ children, onSuccess }: Props) {
 		})
 
 	const addCategory = async ({ name, description }: AddCategorySchema) => {
-		const res = await fetch('/api/flashcards/categories/create-category', {
+		const res = await fetch('/api/categories/create-category', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

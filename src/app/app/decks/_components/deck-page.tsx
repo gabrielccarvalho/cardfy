@@ -44,7 +44,7 @@ export function DecksPage() {
 
 	async function fetchCategories() {
 		const res = await fetch(
-			`/api/flashcards/categories/fetch-categories?search=${
+			`/api/categories/fetch-categories?search=${
 				searchParam || ''
 			}&onlyParents=true`,
 		)
@@ -78,8 +78,10 @@ export function DecksPage() {
 	}
 
 	// biome-ignore lint/suspicious/noExplicitAny: <TODO: Add Type for result object>
-	const handleOnDragEnd = (result: any) => {
+	const handleOnDragEnd = async (result: any) => {
 		const { destination, source, draggableId } = result
+
+		console.log(destination, source, draggableId)
 
 		if (!destination) return
 
@@ -90,6 +92,19 @@ export function DecksPage() {
 			return
 
 		if (!isSuccess) return
+
+		await fetch('/api/categories/move-category', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				categoryId: draggableId,
+				parentId: destination.droppableId,
+			}),
+		})
+
+		queryClient.invalidateQueries()
 	}
 
 	return (
@@ -136,13 +151,13 @@ export function DecksPage() {
 				{isLoading ? (
 					<div />
 				) : (
-					<ScrollArea className='h-[calc(100vh-16rem)] w-full'>
-						<Droppable droppableId='editor' type='deckList'>
-							{(provided) => (
+					<Droppable droppableId='editor' type='deckList'>
+						{(provided) => (
+							<ScrollArea className='h-[calc(100vh-16rem)] w-full'>
 								<div
 									{...provided.droppableProps}
 									ref={provided.innerRef}
-									className='space-y-4'
+									className='py-4 space-y-4'
 								>
 									{isSuccess &&
 										categories.map((category, index) => (
@@ -154,9 +169,9 @@ export function DecksPage() {
 										))}
 									{provided.placeholder}
 								</div>
-							)}
-						</Droppable>
-					</ScrollArea>
+							</ScrollArea>
+						)}
+					</Droppable>
 				)}
 			</main>
 		</DragDropContext>

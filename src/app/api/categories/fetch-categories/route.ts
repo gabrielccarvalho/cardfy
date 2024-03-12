@@ -16,9 +16,45 @@ export async function GET(req: NextRequest) {
 			})
 
 		const categories = await prisma.category.findMany({
+			// Currently getting at least 7 levels deep. This is not ideal.
 			include: {
 				flashcards: true,
-				subCategories: true,
+				subCategories: {
+					include: {
+						flashcards: true,
+						subCategories: {
+							include: {
+								flashcards: true,
+								subCategories: {
+									include: {
+										flashcards: true,
+										subCategories: {
+											include: {
+												flashcards: true,
+												subCategories: {
+													include: {
+														flashcards: true,
+														subCategories: {
+															include: {
+																flashcards: true,
+																subCategories: {
+																	include: {
+																		flashcards: true,
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				parentCategory: true,
 			},
 			where: {
 				userId: session.user?.id,

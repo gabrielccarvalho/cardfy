@@ -5,10 +5,15 @@ import { Category, Flashcard } from '@prisma/client'
 import { MixerHorizontalIcon } from '@radix-ui/react-icons'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 
+type SubCategory = Category & {
+	flashcards: Flashcard[]
+	subCategories?: SubCategory[]
+}
+
 type Props = {
 	category: Category & {
 		flashcards: Flashcard[]
-		subCategories?: (Category & { flashcards: Flashcard[] })[]
+		subCategories?: SubCategory[]
 	}
 	index: number
 }
@@ -35,13 +40,13 @@ export function DecksList({ category, index }: Props) {
 						<h3 className='font-bold text-md'>{category.name}</h3>
 						<div className='flex items-center gap-2'>
 							<span className='text-xs text-gray-400'>
-								{category.flashcards?.length} cards
+								{category.flashcards?.length || 0} cards
 							</span>
 							<span className='text-xs text-gray-400'>
-								{dueFlashcards?.length} due
+								{dueFlashcards?.length || 0} due
 							</span>
 							<span className='text-xs text-gray-400'>
-								{newFlashcards?.length} new
+								{newFlashcards?.length || 0} new
 							</span>
 							<Button size='icon' variant='ghost'>
 								<MixerHorizontalIcon className='size-4' />
@@ -49,11 +54,12 @@ export function DecksList({ category, index }: Props) {
 						</div>
 					</div>
 					<Droppable droppableId={category.id} type='deckList'>
-						{(provided) => (
+						{(provided, snapshot) => (
 							<div
 								ref={provided.innerRef}
 								{...provided.droppableProps}
-								className='space-y-4'
+								aria-busy={snapshot.isDraggingOver}
+								className='space-y-4 aria-busy:border-dashed aria-busy:border aria-busy:border-gray-400 aria-busy:rounded-md aria-busy:animate-pulse'
 							>
 								{category.subCategories?.map((subCategory, index) => (
 									<DecksList
