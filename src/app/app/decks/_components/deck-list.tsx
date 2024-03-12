@@ -2,7 +2,9 @@
 
 import { Button } from '@/components/ui/button'
 import { Category, Flashcard } from '@prisma/client'
-import { MixerHorizontalIcon } from '@radix-ui/react-icons'
+import { ChevronRightIcon, MixerHorizontalIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
+import { useState } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 type SubCategory = Category & {
@@ -19,6 +21,7 @@ type Props = {
 }
 
 export function DecksList({ category, index }: Props) {
+	const [open, setOpen] = useState(false)
 	const dueFlashcards = category.flashcards?.filter(
 		(flashcard) => new Date(flashcard.nextReviewDate) <= new Date(),
 	)
@@ -37,15 +40,28 @@ export function DecksList({ category, index }: Props) {
 					className='flex flex-col w-full p-4 space-y-2 border rounded-md border-border bg-background'
 				>
 					<div className='flex items-center justify-between'>
-						<h3 className='font-bold text-md'>{category.name}</h3>
 						<div className='flex items-center gap-2'>
-							<span className='text-xs text-gray-400'>
+							<Button
+								variant='link'
+								size='sm'
+								onClick={() => setOpen(!open)}
+								aria-checked={open}
+								className='transition-all duration-300 ease-in-out aria-checked:rotate-90'
+							>
+								<ChevronRightIcon className='size-4' />
+							</Button>
+							<Link href={`/decks/${category.id}`}>
+								<h3 className='font-bold text-md'>{category.name}</h3>
+							</Link>
+						</div>
+						<div className='flex items-center gap-2'>
+							<span className='text-sm font-semibold text-gray-500'>
 								{category.flashcards?.length || 0} cards
 							</span>
-							<span className='text-xs text-gray-400'>
+							<span className='text-sm font-semibold text-emerald-500'>
 								{dueFlashcards?.length || 0} due
 							</span>
-							<span className='text-xs text-gray-400'>
+							<span className='text-sm font-semibold text-indigo-500'>
 								{newFlashcards?.length || 0} new
 							</span>
 							<Button size='icon' variant='ghost'>
@@ -54,20 +70,20 @@ export function DecksList({ category, index }: Props) {
 						</div>
 					</div>
 					<Droppable droppableId={category.id} type='deckList'>
-						{(provided, snapshot) => (
+						{(provided) => (
 							<div
 								ref={provided.innerRef}
 								{...provided.droppableProps}
-								aria-busy={snapshot.isDraggingOver}
-								className='space-y-4 aria-busy:border-dashed aria-busy:border aria-busy:border-gray-400 aria-busy:rounded-md aria-busy:animate-pulse'
+								className='space-y-4'
 							>
-								{category.subCategories?.map((subCategory, index) => (
-									<DecksList
-										key={subCategory.id}
-										category={subCategory}
-										index={index}
-									/>
-								))}
+								{open &&
+									category.subCategories?.map((subCategory, index) => (
+										<DecksList
+											key={subCategory.id}
+											category={subCategory}
+											index={index}
+										/>
+									))}
 								{provided.placeholder}
 							</div>
 						)}

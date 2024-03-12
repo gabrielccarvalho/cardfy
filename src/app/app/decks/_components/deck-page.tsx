@@ -83,15 +83,15 @@ export function DecksPage() {
 
 		console.log(destination, source, draggableId)
 
-		if (!destination) return
+		if (!destination) return // If there is no destination, do nothing
 
 		if (
 			destination.droppableId === source.droppableId &&
 			destination.index === source.index
 		)
-			return
+			return // If the draggable item is dropped in the same position, do nothing
 
-		if (!isSuccess) return
+		if (!isSuccess) return // If the categories are not loaded, do nothing
 
 		await fetch('/api/categories/move-category', {
 			method: 'POST',
@@ -157,7 +157,7 @@ export function DecksPage() {
 								<div
 									{...provided.droppableProps}
 									ref={provided.innerRef}
-									className='py-4 space-y-4'
+									className='py-4 space-y-6'
 								>
 									{isSuccess &&
 										categories.map((category, index) => (
