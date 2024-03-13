@@ -1,5 +1,13 @@
 'use client'
 
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import {
 	InfoCard,
@@ -16,6 +24,7 @@ import {
 } from '@radix-ui/react-icons'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { ActivityCalendar } from './activity-calendar'
 
 type SubCategory = Category & {
 	flashcards: Flashcard[]
@@ -135,7 +144,28 @@ export default function OverviewPage({ category }: { category: string }) {
 
 	return (
 		<main className='space-y-6'>
-			<h1 className='text-2xl font-bold'>{data.name}</h1>
+			<Breadcrumb>
+				<BreadcrumbList>
+					<BreadcrumbItem>
+						<BreadcrumbLink href='/app/decks'>Decks</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					{data.parentId && (
+						<>
+							<BreadcrumbItem>
+								<BreadcrumbLink href={`/app/decks/${data.parentId}`}>
+									...
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator />
+						</>
+					)}
+					<BreadcrumbItem>
+						<BreadcrumbPage>{data.name}</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+			<h1 className='text-3xl font-bold'>{data.name}</h1>
 			<div className='flex gap-4 flex-wrap'>
 				{cardsData.map((card, index) => (
 					<InfoCard
@@ -155,6 +185,9 @@ export default function OverviewPage({ category }: { category: string }) {
 						</InfoCardMain>
 					</InfoCard>
 				))}
+			</div>
+			<div className='flex w-full'>
+				<ActivityCalendar data={data} />
 			</div>
 			<div className='flex gap-4 mt-8'>
 				<Link href={`/app/flashcards/create/${category}`}>
