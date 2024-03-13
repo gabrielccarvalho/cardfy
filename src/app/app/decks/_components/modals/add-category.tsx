@@ -24,6 +24,7 @@ import { Category } from '@prisma/client'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const addCategorySchema = z.object({
@@ -37,27 +38,41 @@ type AddCategorySchema = z.infer<typeof addCategorySchema>
 
 type Props = {
 	children: React.ReactNode
+	open: boolean
+	setOpen: (open: boolean) => void
 	onSuccess: (category: Category) => void
 }
 
-export function AddCategoryModal({ children, onSuccess }: Props) {
+export function AddCategoryModal({
+	children,
+	open,
+	setOpen,
+	onSuccess,
+}: Props) {
 	const { register, handleSubmit, formState, reset } =
 		useForm<AddCategorySchema>({
 			resolver: zodResolver(addCategorySchema),
 		})
 
 	const addCategory = async ({ name, description }: AddCategorySchema) => {
-		const res = await fetch('/api/categories/create-category', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ name, description }),
-		})
+		try {
+			const res = await fetch('/api/categories/create-category', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ name, description }),
+			})
 
-		const { category } = await res.json()
+			const { category } = await res.json()
 
-		return category
+			toast.success('Deck added successfully!')
+
+			return category
+		} catch (err) {
+			toast.error('Error adding deck')
+			console.error(err)
+		}
 	}
 
 	const handleAddCategory = async ({
@@ -80,7 +95,7 @@ export function AddCategoryModal({ children, onSuccess }: Props) {
 	})
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<TooltipProvider>
 				<Tooltip delayDuration={300}>
 					<TooltipTrigger asChild>

@@ -9,7 +9,8 @@ import { Category, Flashcard } from '@prisma/client'
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useQueryState } from 'nuqs'
-import { Droppable } from 'react-beautiful-dnd'
+import { useState } from 'react'
+import { DropResult, Droppable } from 'react-beautiful-dnd'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -24,6 +25,7 @@ type SearchFilterSchema = z.infer<typeof searchFilterSchema>
 
 export function DecksPage() {
 	const queryClient = useQueryClient()
+	const [openAddCategoryModal, setOpenAddCategoryModal] = useState(false)
 	const [searchParam, setSearchParam] = useQueryState('search')
 
 	const { register, handleSubmit, resetField } = useForm<SearchFilterSchema>({
@@ -75,10 +77,11 @@ export function DecksPage() {
 				return [...oldData, category]
 			},
 		)
+
+		setOpenAddCategoryModal(false)
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: <TODO: Add Type for result object>
-	const handleOnDragEnd = async (result: any) => {
+	const handleOnDragEnd = async (result: DropResult) => {
 		const { destination, source, draggableId } = result
 
 		console.log(destination, source, draggableId)
@@ -118,8 +121,12 @@ export function DecksPage() {
 								placeholder='Search a deck'
 								{...register('search')}
 							/>
-							<AddCategoryModal onSuccess={addCategory}>
-								<Button size='sm'>
+							<AddCategoryModal
+								open={openAddCategoryModal}
+								setOpen={setOpenAddCategoryModal}
+								onSuccess={addCategory}
+							>
+								<Button size='sm' onClick={() => setOpenAddCategoryModal(true)}>
 									<PlusIcon className='size-4' />
 								</Button>
 							</AddCategoryModal>

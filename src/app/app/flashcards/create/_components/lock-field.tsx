@@ -1,0 +1,26 @@
+'use client'
+
+import { Switch } from '@/components/ui/switch'
+import { LockClosedIcon, LockOpen2Icon } from '@radix-ui/react-icons'
+
+export function LockField({
+	locked,
+	setLocked,
+}: { locked: boolean; setLocked: (locked: boolean) => void }) {
+	return (
+		<div className='flex items-center gap-2 text-sm'>
+			{locked ? (
+				<>
+					<LockClosedIcon className='w-4 h-4' />
+					Locked
+				</>
+			) : (
+				<>
+					<LockOpen2Icon className='w-4 h-4' />
+					Unlocked
+				</>
+			)}
+			<Switch checked={locked} onCheckedChange={() => setLocked(!locked)} />
+		</div>
+	)
+}

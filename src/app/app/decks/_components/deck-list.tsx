@@ -1,11 +1,21 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Category, Flashcard } from '@prisma/client'
 import { ChevronRightIcon, MixerHorizontalIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { AlertDeleteCategory } from './modals/delete-category'
 
 type SubCategory = Category & {
 	flashcards: Flashcard[]
@@ -88,7 +98,7 @@ export function DecksList({ category, index }: Props) {
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
 					ref={provided.innerRef}
-					className='flex flex-col w-full p-4 space-y-2 border rounded-md border-border bg-background'
+					className='flex flex-col w-full p-4 space-y-2 border rounded-md shadow-md dark:shadow-gray-400/5 border-border bg-background'
 				>
 					<div className='flex items-center justify-between'>
 						<div className='flex items-center gap-2'>
@@ -101,7 +111,7 @@ export function DecksList({ category, index }: Props) {
 							>
 								<ChevronRightIcon className='size-4' />
 							</Button>
-							<Link href={`/app/flashcards/solve/${category.id}`}>
+							<Link href={`/app/decks/${category.id}`}>
 								<h3 className='font-bold text-md'>{category.name}</h3>
 							</Link>
 						</div>
@@ -117,9 +127,25 @@ export function DecksList({ category, index }: Props) {
 							<span className='text-sm font-semibold text-indigo-500'>
 								{newFlashcardsCount} new
 							</span>
-							<Button size='icon' variant='ghost'>
-								<MixerHorizontalIcon className='size-4' />
-							</Button>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button size='icon' variant='ghost'>
+										<MixerHorizontalIcon className='size-4' />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent>
+									<DropdownMenuLabel>Actions</DropdownMenuLabel>
+									<DropdownMenuGroup>
+										<DropdownMenuItem disabled>Edit</DropdownMenuItem>
+									</DropdownMenuGroup>
+									<DropdownMenuSeparator />
+									<DropdownMenuGroup>
+										<DropdownMenuItem asChild>
+											<AlertDeleteCategory id={category.id} />
+										</DropdownMenuItem>
+									</DropdownMenuGroup>
+								</DropdownMenuContent>
+							</DropdownMenu>
 						</div>
 					</div>
 					<Droppable droppableId={category.id} type='deckList'>
