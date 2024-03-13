@@ -57,7 +57,7 @@ export async function PUT(req: NextRequest) {
 		const answerIndex = ['again', 'hard', 'good', 'easy'].indexOf(answer)
 		let easeFactor = flashcard.easeFactor
 
-		const defaultMinimunInterval = 10 * 60 * 1000 // 10 minutes
+		const defaultMinimunInterval = 30 * 60 * 1000 // 30 minutes
 
 		if (easeFactor < 1.3) {
 			easeFactor = 1.3
