@@ -21,7 +21,41 @@ export async function GET(req: NextRequest) {
 			},
 			include: {
 				flashcards: true,
-				subCategories: true,
+				subCategories: {
+					include: {
+						flashcards: true,
+						subCategories: {
+							include: {
+								flashcards: true,
+								subCategories: {
+									include: {
+										flashcards: true,
+										subCategories: {
+											include: {
+												flashcards: true,
+												subCategories: {
+													include: {
+														flashcards: true,
+														subCategories: {
+															include: {
+																flashcards: true,
+																subCategories: {
+																	include: {
+																		flashcards: true,
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		})
 
