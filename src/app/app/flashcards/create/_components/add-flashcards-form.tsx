@@ -83,7 +83,6 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 						<Textarea
 							placeholder='Type the front of your card here...'
 							id='front'
-							maxLength={500}
 							rows={10}
 							{...register('front')}
 							className='resize-none'
@@ -104,7 +103,6 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 						<Textarea
 							placeholder='Type the back of your card here...'
 							id='back'
-							maxLength={500}
 							rows={10}
 							{...register('back')}
 							className='resize-none'
@@ -128,7 +126,6 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 						<Textarea
 							placeholder='Add any extra information you want here...'
 							id='extra-information'
-							maxLength={500}
 							rows={10}
 							{...register('extraInformation')}
 							className='resize-none'
