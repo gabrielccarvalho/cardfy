@@ -75,7 +75,15 @@ export async function GET(req: NextRequest) {
 			if (!categories) return
 
 			for (const category of categories) {
-				flashcards.push(...category.flashcards)
+				// Filter flashcards based on nextReviewDate
+				const filteredFlashcards = category.flashcards.filter(
+					(flashcard) => new Date(flashcard.nextReviewDate) <= new Date(),
+				)
+
+				// Add filtered flashcards to the main list
+				flashcards.push(...filteredFlashcards)
+
+				// Recursively include flashcards from subcategories
 				includeSubcategories(category.subCategories)
 			}
 		}
