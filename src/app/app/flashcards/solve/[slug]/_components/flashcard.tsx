@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
 import { Flashcard } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -62,17 +63,28 @@ export function FlashCardComponent({ category }: { category: string }) {
 
 	const questionContent = current.question.split('\n')
 	const answerContent = current.answer.split('\n')
+	const extraContent = current.extraInformation.split('\n')
 
 	return (
 		<main className='h-[calc(100vh-7rem)] flex flex-col'>
 			<div className='flex flex-col items-center w-full'>
 				<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] shadow-md z-10'>
-					<CardContent className='flex items-center justify-center flex-1'>
+					<CardContent className='flex flex-col items-center justify-around flex-1'>
 						<p className='text-xl font-bold text-center max-w-4xl leading-relaxed'>
 							{reveal
 								? answerContent.map((answer: string) => <p>{answer}</p>)
 								: questionContent.map((question: string) => <p>{question}</p>)}
 						</p>
+						{reveal && current.extraInformation && (
+							<>
+								<Separator className='w-full border-t-2' />
+								<p className='text-xl font-bold text-center max-w-4xl leading-relaxed'>
+									{extraContent.map((extra: string) => (
+										<p>{extra}</p>
+									))}
+								</p>
+							</>
+						)}
 					</CardContent>
 					<CardFooter className='w-full'>
 						{!reveal ? (
