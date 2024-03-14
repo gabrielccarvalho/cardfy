@@ -81,6 +81,11 @@ const getActivityData = (category: CategoryType) => {
 		sortedFlashcards.push({ date: yearEnd, count: 0, level: 0 })
 	}
 
+	if (sortedFlashcards.length === 0) {
+		sortedFlashcards.push({ date: yearStart, count: 0, level: 0 })
+		sortedFlashcards.push({ date: yearEnd, count: 0, level: 0 })
+	}
+
 	return sortedFlashcards
 }
 
