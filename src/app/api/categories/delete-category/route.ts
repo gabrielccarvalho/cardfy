@@ -38,6 +38,13 @@ export async function DELETE(req: NextRequest) {
 			})
 		}
 
+		await prisma.category.deleteMany({
+			where: {
+				parentId: id,
+				userId: session.user?.id,
+			},
+		})
+
 		await prisma.category.delete({
 			where: {
 				id,
