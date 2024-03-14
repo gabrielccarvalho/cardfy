@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
-import { Searchbar } from '../searchbar'
+// import { Searchbar } from '../searchbar'
 import { ModeToggle } from '../ui/mode-toggle'
-import { Separator } from '../ui/separator'
+// import { Separator } from '../ui/separator'
 
 export type PageGenericProps<T = React.HTMLAttributes<HTMLElement>> = {
 	children: React.ReactNode
@@ -31,8 +31,8 @@ export function PageHeader({
 		>
 			{children}
 			<div className='flex items-center gap-2 ml-auto'>
-				<Searchbar />
-				<Separator orientation='vertical' className='h-8' />
+				{/* <Searchbar /> */}
+				{/* <Separator orientation='vertical' className='h-8' /> */}
 				<ModeToggle />
 			</div>
 		</header>
