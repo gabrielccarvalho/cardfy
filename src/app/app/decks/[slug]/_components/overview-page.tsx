@@ -133,13 +133,13 @@ export default function OverviewPage({ category }: { category: string }) {
 			unity: 'cards',
 			disabled: false,
 		},
-		{
-			title: 'Study Time',
-			icon: <LapTimerIcon className='size-5' />,
-			count: 0,
-			unity: 'min.',
-			disabled: true,
-		},
+		// {
+		// 	title: 'Study Time',
+		// 	icon: <LapTimerIcon className='size-5' />,
+		// 	count: 0,
+		// 	unity: 'min.',
+		// 	disabled: true,
+		// },
 	]
 
 	return (

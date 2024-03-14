@@ -1,8 +1,12 @@
 'use client'
 
 import { Category, Flashcard } from '@prisma/client'
+import moment from 'moment'
 import { useTheme } from 'next-themes'
+import { cloneElement } from 'react'
 import AC from 'react-activity-calendar'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
 
 type CategoryType = Category & {
 	flashcards: Flashcard[]
@@ -106,7 +110,27 @@ export function ActivityCalendar({ data }: Props) {
 					dark: ['#121212', '#0D4429', '#016D32', '#27A641', '#3AD353'],
 				}}
 				data={grouppedFlashcards}
+				labels={{
+					totalCount: '{{count}} cards in {{year}}',
+				}}
+				renderBlock={(block, activity) => {
+					const activityDate = moment(activity.date).format('dddd, MMMM Do')
+
+					const activityPreposition =
+						new Date(activity.date) > new Date() ? 'for' : 'on'
+
+					const activityCount =
+						activity.count === 1
+							? `${activity.count} card`
+							: `${activity.count} cards`
+
+					return cloneElement(block, {
+						'data-tooltip-id': 'react-tooltip',
+						'data-tooltip-html': `${activityCount} ${activityPreposition} ${activityDate}`,
+					})
+				}}
 			/>
+			<ReactTooltip id='react-tooltip' />
 		</div>
 	)
 }

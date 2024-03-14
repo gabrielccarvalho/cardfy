@@ -35,12 +35,7 @@ export function AlertDeleteCategory({ id }: { id: string }) {
 	const { mutateAsync: deleteCategoryFn } = useMutation({
 		mutationFn: deleteCategory,
 		onSuccess() {
-			queryClient.setQueryData(
-				['categories', searchParam],
-				(prevCategories: Category[]) => {
-					return prevCategories.filter((category) => category.id !== id)
-				},
-			)
+			queryClient.invalidateQueries()
 		},
 	})
 
