@@ -12,7 +12,7 @@ export function Heading() {
 				variant='outline'
 				className='rounded-full text-sm py-2 px-6 bg-white flex items-center hover:cursor-pointer group'
 			>
-				<span className=''>Introducing v0</span>
+				<span className=''>Introducing Cardfy</span>
 				<ChevronRightIcon className='size-4 transition-all duration-300 group-hover:translate-x-2' />
 			</Badge>
 			<div className='mx-auto max-w-md px-2.5 text-center sm:max-w-lg sm:px-0'>

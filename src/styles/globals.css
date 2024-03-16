@@ -52,7 +52,7 @@
 @layer base {
   * {
     @apply border-border;
-    -webkit-font-smoothing: antialiased;
+    /* -webkit-font-smoothing: antialiased; */
   }
   body {
     @apply bg-background text-foreground;

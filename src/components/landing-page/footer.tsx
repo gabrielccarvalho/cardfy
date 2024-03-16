@@ -34,38 +34,41 @@ const navigation = {
 	tools: [{ name: '', href: '/' }],
 }
 
-export function Footer() {
+export function Footer({ onlyFooter }: { onlyFooter?: boolean }) {
 	const { domain = 'cardfy.com' } = useParams() as { domain: string }
 
 	const createHref = (href: string) =>
 		domain === 'cardfy.com' ? href : `https://cardfy.com${href}`
 	return (
 		<>
-			<main className='flex flex-col items-center my-10 w-full'>
-				<div className='mx-auto max-w-md px-2.5 text-center sm:max-w-xl sm:px-0'>
-					<h1 className='mt-5 font-display text-4xl font-extrabold leading-[1.15] text-black sm:text-5xl sm:leading-[1.15] text-center'>
-						<span className='bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent'>
-							Supercharge
-						</span>
-						<br />
-						your study sessions
-					</h1>
-					<p className='mt-5 text-gray-600 font-medium sm:text-lg'>
-						See why Cardfy is the go-to tool for studying flashcards with spaced
-						repetition.
-					</p>
-				</div>
-				<div className='flex gap-6 mt-8'>
-					<Link href='/auth'>
-						<Button className='animate-fade-in rounded-md border border-black bg-black px-4 py-1.5 text-sm text-white transition-all hover:bg-white hover:text-black'>
-							Start for free
+			{!onlyFooter && (
+				<main className='flex flex-col items-center my-16 w-full'>
+					<div className='mx-auto max-w-md px-2.5 text-center sm:max-w-xl sm:px-0'>
+						<Logo size={50} className='justify-center' />
+						<h1 className='mt-5 font-display text-4xl font-extrabold leading-[1.15] text-black sm:text-5xl sm:leading-[1.15] text-center'>
+							<span className='bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent'>
+								Supercharge
+							</span>
+							<br />
+							your study sessions
+						</h1>
+						<p className='mt-5 text-gray-600 font-medium sm:text-lg'>
+							See why Cardfy is the go-to tool for studying flashcards with
+							spaced repetition.
+						</p>
+					</div>
+					<div className='flex gap-6 mt-8'>
+						<Link href='/auth'>
+							<Button className='animate-fade-in rounded-md border border-black bg-black px-4 py-1.5 text-sm text-white transition-all hover:bg-white hover:text-black'>
+								Start for free
+							</Button>
+						</Link>
+						<Button variant='secondary' className='bg-white'>
+							Get a demo
 						</Button>
-					</Link>
-					<Button variant='secondary' className='bg-white'>
-						Get a demo
-					</Button>
-				</div>
-			</main>
+					</div>
+				</main>
+			)}
 			<MaxWidthWrapper className='relative z-10 overflow-hidden border border-b-0 border-gray-200 bg-white/50 pb-60 pt-16 backdrop-blur-lg md:rounded-t-2xl'>
 				<div className='xl:grid xl:grid-cols-3 xl:gap-8'>
 					<div className='space-y-6'>
