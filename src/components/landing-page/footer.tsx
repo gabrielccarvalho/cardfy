@@ -66,58 +66,92 @@ export function Footer() {
 					</Button>
 				</div>
 			</main>
-			<footer>
-				<MaxWidthWrapper className='relative z-10 overflow-hidden border border-b-0 border-gray-200 bg-white/50 pb-60 pt-16 backdrop-blur-lg md:rounded-t-2xl'>
-					<div className='xl:grid xl:grid-cols-3 xl:gap-8'>
-						<div className='space-y-6'>
-							<Link href={createHref('/')}>
-								<span className='sr-only'>Cardfy Logo</span>
-								<Logo className='h-7 text-gray-800' />
-							</Link>
-							<p className='max-w-xs text-sm text-gray-500'>
-								Giving students superpowers with flashcards that stand out.
-							</p>
-							<p className='text-sm leading-5 text-gray-400'>
-								© {new Date().getFullYear()} Cardfy Technologies, Inc.
-							</p>
-							<div className='flex items-center space-x-3'>
-								<a
-									href='https://twitter.com/deliciadecampos'
-									target='_blank'
-									rel='noreferrer'
-									className='group rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
-								>
-									<span className='sr-only'>Twitter</span>
-									<Twitter className='h-4 w-4 text-gray-600' />
-								</a>
-								<a
-									href='https://github.com/gabrielccarvalho/cardfy'
-									target='_blank'
-									rel='noreferrer'
-									className='rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
-								>
-									<span className='sr-only'>Github</span>
-									<Github className='h-4 w-4 text-gray-600' />
-								</a>
-								<a
-									href='https://www.linkedin.com/in/gabrielcamposdecarvalho/'
-									target='_blank'
-									rel='noreferrer'
-									className='rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
-								>
-									<span className='sr-only'>LinkedIn</span>
-									<LinkedIn className='h-4 w-4 text-gray-600' />
-								</a>
+			<MaxWidthWrapper className='relative z-10 overflow-hidden border border-b-0 border-gray-200 bg-white/50 pb-60 pt-16 backdrop-blur-lg md:rounded-t-2xl'>
+				<div className='xl:grid xl:grid-cols-3 xl:gap-8'>
+					<div className='space-y-6'>
+						<Link href={createHref('/')}>
+							<span className='sr-only'>Cardfy Logo</span>
+							<Logo className='h-7 text-gray-800' />
+						</Link>
+						<p className='max-w-xs text-sm text-gray-500'>
+							Giving students superpowers with flashcards that stand out.
+						</p>
+						<p className='text-sm leading-5 text-gray-400'>
+							© {new Date().getFullYear()} Cardfy Technologies, Inc.
+						</p>
+						<div className='flex items-center space-x-3'>
+							<a
+								href='https://twitter.com/deliciadecampos'
+								target='_blank'
+								rel='noreferrer'
+								className='group rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
+							>
+								<span className='sr-only'>Twitter</span>
+								<Twitter className='h-4 w-4 text-gray-600' />
+							</a>
+							<a
+								href='https://github.com/gabrielccarvalho/cardfy'
+								target='_blank'
+								rel='noreferrer'
+								className='rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
+							>
+								<span className='sr-only'>Github</span>
+								<Github className='h-4 w-4 text-gray-600' />
+							</a>
+							<a
+								href='https://www.linkedin.com/in/gabrielcamposdecarvalho/'
+								target='_blank'
+								rel='noreferrer'
+								className='rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100'
+							>
+								<span className='sr-only'>LinkedIn</span>
+								<LinkedIn className='h-4 w-4 text-gray-600' />
+							</a>
+						</div>
+					</div>
+					<div className='mt-16 grid grid-cols-2 gap-4 xl:col-span-2 xl:mt-0'>
+						<div className='md:grid md:grid-cols-2'>
+							<div>
+								<h3 className='text-sm font-semibold text-gray-800'>
+									Features
+								</h3>
+								<ul className='mt-4 space-y-4'>
+									{navigation.features.map((item) => (
+										<li key={item.name}>
+											<Link
+												href={createHref(item.href)}
+												className='text-sm text-gray-500 hover:text-gray-800'
+											>
+												{item.name}
+											</Link>
+										</li>
+									))}
+								</ul>
+							</div>
+							<div className='mt-10 md:mt-0'>
+								<h3 className='text-sm font-semibold text-gray-800'>Product</h3>
+								<ul className='mt-4 space-y-4'>
+									{navigation.product.map((item) => (
+										<li key={item.name}>
+											<Link
+												href={createHref(item.href)}
+												className='text-sm text-gray-500 hover:text-gray-800'
+											>
+												{item.name}
+											</Link>
+										</li>
+									))}
+								</ul>
 							</div>
 						</div>
-						<div className='mt-16 grid grid-cols-2 gap-4 xl:col-span-2 xl:mt-0'>
-							<div className='md:grid md:grid-cols-2'>
+						<div className='md:grid md:grid-cols-2'>
+							<div className='flex flex-col space-y-8'>
 								<div>
 									<h3 className='text-sm font-semibold text-gray-800'>
-										Features
+										Compare
 									</h3>
 									<ul className='mt-4 space-y-4'>
-										{navigation.features.map((item) => (
+										{navigation.compare.map((item) => (
 											<li key={item.name}>
 												<Link
 													href={createHref(item.href)}
@@ -129,12 +163,10 @@ export function Footer() {
 										))}
 									</ul>
 								</div>
-								<div className='mt-10 md:mt-0'>
-									<h3 className='text-sm font-semibold text-gray-800'>
-										Product
-									</h3>
+								<div>
+									<h3 className='text-sm font-semibold text-gray-800'>Legal</h3>
 									<ul className='mt-4 space-y-4'>
-										{navigation.product.map((item) => (
+										{navigation.legal.map((item) => (
 											<li key={item.name}>
 												<Link
 													href={createHref(item.href)}
@@ -147,64 +179,26 @@ export function Footer() {
 									</ul>
 								</div>
 							</div>
-							<div className='md:grid md:grid-cols-2'>
-								<div className='flex flex-col space-y-8'>
-									<div>
-										<h3 className='text-sm font-semibold text-gray-800'>
-											Compare
-										</h3>
-										<ul className='mt-4 space-y-4'>
-											{navigation.compare.map((item) => (
-												<li key={item.name}>
-													<Link
-														href={createHref(item.href)}
-														className='text-sm text-gray-500 hover:text-gray-800'
-													>
-														{item.name}
-													</Link>
-												</li>
-											))}
-										</ul>
-									</div>
-									<div>
-										<h3 className='text-sm font-semibold text-gray-800'>
-											Legal
-										</h3>
-										<ul className='mt-4 space-y-4'>
-											{navigation.legal.map((item) => (
-												<li key={item.name}>
-													<Link
-														href={createHref(item.href)}
-														className='text-sm text-gray-500 hover:text-gray-800'
-													>
-														{item.name}
-													</Link>
-												</li>
-											))}
-										</ul>
-									</div>
-								</div>
 
-								<div className='mt-10 md:mt-0'>
-									<h3 className='text-sm font-semibold text-gray-800'>Tools</h3>
-									<ul className='mt-4 space-y-4'>
-										{navigation.tools.map((item) => (
-											<li key={item.name}>
-												<Link
-													href={createHref(item.href)}
-													className='text-sm text-gray-500 hover:text-gray-800'
-												>
-													{item.name}
-												</Link>
-											</li>
-										))}
-									</ul>
-								</div>
+							<div className='mt-10 md:mt-0'>
+								<h3 className='text-sm font-semibold text-gray-800'>Tools</h3>
+								<ul className='mt-4 space-y-4'>
+									{navigation.tools.map((item) => (
+										<li key={item.name}>
+											<Link
+												href={createHref(item.href)}
+												className='text-sm text-gray-500 hover:text-gray-800'
+											>
+												{item.name}
+											</Link>
+										</li>
+									))}
+								</ul>
 							</div>
 						</div>
 					</div>
-				</MaxWidthWrapper>
-			</footer>
+				</div>
+			</MaxWidthWrapper>
 		</>
 	)
 }

@@ -18,7 +18,7 @@ export function Demo() {
 					superpowers to achieve all of your goals.
 				</p>
 			</div>
-			<div className='w-full max-w-6xl border border-border bg-gray-400/10 rounded-md shadow-lg backdrop-blur-md aspect-video mt-12' />
+			<div className='w-3/4 max-w-6xl border border-border bg-gray-400/10 rounded-md shadow-lg backdrop-blur-md aspect-video mt-12' />
 		</main>
 	)
 }
