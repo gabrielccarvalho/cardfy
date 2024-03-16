@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 // import { Searchbar } from '../searchbar'
-import { ModeToggle } from '../ui/mode-toggle'
+// import { ModeToggle } from '../ui/mode-toggle'
 // import { Separator } from '../ui/separator'
 
 export type PageGenericProps<T = React.HTMLAttributes<HTMLElement>> = {
@@ -33,7 +33,7 @@ export function PageHeader({
 			<div className='flex items-center gap-2 ml-auto'>
 				{/* <Searchbar /> */}
 				{/* <Separator orientation='vertical' className='h-8' /> */}
-				<ModeToggle />
+				{/* <ModeToggle /> */}
 			</div>
 		</header>
 	)

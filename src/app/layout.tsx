@@ -1,16 +1,13 @@
 import { Toaster } from '@/components/ui/sonner'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-import { ThemeProvider } from '@/components/theme-provider'
+import { cn } from '@/lib/utils'
+import { inter, satoshi } from '@/styles/fonts'
 import '@/styles/globals.css'
+import type { Metadata } from 'next'
 import { Providers } from './providers'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
-	title: 'Cardfy | The best flashcards app',
-	description: 'The best flashcards app',
+	title: 'Cardfy | Flashcards app',
+	description: 'The go-to flashcards study tool with spaced repetition.',
 }
 
 export default function RootLayout({
@@ -21,16 +18,9 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<Providers>
-				<body className={inter.className}>
-					<ThemeProvider
-						attribute='class'
-						defaultTheme='dark'
-						enableSystem={false}
-						disableTransitionOnChange
-					>
-						{children}
-						<Toaster />
-					</ThemeProvider>
+				<body className={cn(satoshi.variable, inter.variable)}>
+					{children}
+					<Toaster />
 				</body>
 			</Providers>
 		</html>

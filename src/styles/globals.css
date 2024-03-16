@@ -24,8 +24,6 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
-
-    --selection: 168, 84%, 78%;
   }
 
   .dark {
@@ -48,8 +46,6 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-
-    --selection: 173, 80%, 40%;
   }
 }
 
@@ -57,10 +53,6 @@
   * {
     @apply border-border;
     -webkit-font-smoothing: antialiased;
-  }
-  ::selection {
-    background-color: hsl(var(--selection));
-    color: hsl(var(--foreground))
   }
   body {
     @apply bg-background text-foreground;

@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss'
 
+const svgToDataUri = require('mini-svg-data-uri')
+
+const colors = require('tailwindcss/colors')
+const {
+	default: flattenColorPalette,
+} = require('tailwindcss/lib/util/flattenColorPalette')
+
 const config = {
 	darkMode: ['class'],
 	content: [
@@ -18,6 +25,10 @@ const config = {
 			},
 		},
 		extend: {
+			fontFamily: {
+				display: ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
+				default: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+			},
 			screens: {
 				'3xl': '1800px',
 				'4xl': '2100px',
@@ -64,6 +75,15 @@ const config = {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
 			},
+			animation: {
+				first: 'moveVertical 30s ease infinite',
+				second: 'moveInCircle 20s reverse infinite',
+				third: 'moveInCircle 40s linear infinite',
+				fourth: 'moveHorizontal 40s ease infinite',
+				fifth: 'moveInCircle 20s ease infinite',
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: { height: '0' },
@@ -73,14 +93,103 @@ const config = {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' },
 				},
-			},
-			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
+				moveHorizontal: {
+					'0%': {
+						transform: 'translateX(-50%) translateY(-10%)',
+					},
+					'50%': {
+						transform: 'translateX(50%) translateY(10%)',
+					},
+					'100%': {
+						transform: 'translateX(-50%) translateY(-10%)',
+					},
+				},
+				moveInCircle: {
+					'0%': {
+						transform: 'rotate(0deg)',
+					},
+					'50%': {
+						transform: 'rotate(180deg)',
+					},
+					'100%': {
+						transform: 'rotate(360deg)',
+					},
+				},
+				moveVertical: {
+					'0%': {
+						transform: 'translateY(-50%)',
+					},
+					'50%': {
+						transform: 'translateY(50%)',
+					},
+					'100%': {
+						transform: 'translateY(-50%)',
+					},
+				},
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate'), require('@tailwindcss/line-clamp')],
+	plugins: [
+		require('tailwindcss-animate'),
+		require('@tailwindcss/line-clamp'),
+		addVariablesForColors,
+		({
+			matchUtilities,
+			theme,
+		}: {
+			matchUtilities: (
+				arg0: {
+					'bg-grid': (value: string) => { backgroundImage: string }
+					'bg-grid-small': (value: string) => { backgroundImage: string }
+					'bg-dot': (value: string) => { backgroundImage: string }
+				},
+				arg1: { values: { [x: string]: string }; type: string },
+			) => void
+			theme: (arg0: string) => string
+		}) => {
+			matchUtilities(
+				{
+					'bg-grid': (value: string) => ({
+						backgroundImage: `url("${svgToDataUri(
+							`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
+						)}")`,
+					}),
+					'bg-grid-small': (value: string) => ({
+						backgroundImage: `url("${svgToDataUri(
+							`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
+						)}")`,
+					}),
+					'bg-dot': (value: string) => ({
+						backgroundImage: `url("${svgToDataUri(
+							`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`,
+						)}")`,
+					}),
+				},
+				{
+					values: flattenColorPalette(theme('backgroundColor')),
+					type: 'color',
+				},
+			)
+		},
+	],
 } satisfies Config
+
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+function addVariablesForColors({
+	addBase,
+	theme,
+}: {
+	addBase: (styles: Record<string, unknown>) => void
+	theme: (path: string) => Record<string, unknown>
+}) {
+	const allColors = flattenColorPalette(theme('colors'))
+	const newVars = Object.fromEntries(
+		Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+	)
+
+	addBase({
+		':root': newVars,
+	})
+}
 
 export default config

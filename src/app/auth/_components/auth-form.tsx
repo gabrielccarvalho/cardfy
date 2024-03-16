@@ -1,5 +1,6 @@
 'use client'
 
+import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -47,7 +48,8 @@ export function AuthForm() {
 	)
 
 	return (
-		<div className='flex flex-col gap-4 items-center w-1/2'>
+		<div className='flex flex-col gap-4 items-center bg-white p-16 rounded-lg shadow-lg aspect-[2/1] relative'>
+			<Logo size={60} className='absolute -top-8 shadow-md' />
 			<div className='text-center space-y-2'>
 				<h1 className='text-3xl font-bold'>Login</h1>
 				<p className='text-sm text-gray-500 dark:text-gray-400'>
