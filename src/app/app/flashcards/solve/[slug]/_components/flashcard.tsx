@@ -68,9 +68,9 @@ export function FlashCardComponent({ category }: { category: string }) {
 	return (
 		<main className='h-[calc(100vh-7rem)] flex flex-col'>
 			<div className='flex flex-col items-center w-full'>
-				<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] shadow-md z-10'>
+				<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] max-w-7xl shadow-md z-10'>
 					<CardContent className='flex flex-col items-center justify-around flex-1'>
-						<p className='text-xl font-bold text-center max-w-4xl leading-relaxed'>
+						<p className='max-w-4xl text-xl font-bold leading-relaxed text-center'>
 							{reveal
 								? answerContent.map((answer: string) => <p>{answer}</p>)
 								: questionContent.map((question: string) => <p>{question}</p>)}
@@ -78,7 +78,7 @@ export function FlashCardComponent({ category }: { category: string }) {
 						{reveal && current.extraInformation && (
 							<>
 								<Separator className='w-full border-t-2' />
-								<p className='text-xl font-bold text-center max-w-4xl leading-relaxed'>
+								<p className='max-w-4xl text-xl font-bold leading-relaxed text-center'>
 									{extraContent.map((extra: string) => (
 										<p>{extra}</p>
 									))}
@@ -134,9 +134,9 @@ export function FlashCardComponent({ category }: { category: string }) {
 						)}
 					</CardFooter>
 				</Card>
-				<div className='w-2/3 aspect-[16/10] h-6 shadow-md rounded-md -mt-2 border' />
+				<div className='w-2/3 aspect-[16/10] max-w-6xl h-6 shadow-md rounded-md -mt-2 border' />
 			</div>
-			<div className='flex flex-col w-full max-w-screen-md mx-auto mt-16 gap-4 items-center'>
+			<div className='flex flex-col items-center w-full max-w-screen-md gap-4 mx-auto mt-16'>
 				<p className='text-lg font-bold'>
 					{currentCardIndex} / {flashcards.length} cards
 				</p>
