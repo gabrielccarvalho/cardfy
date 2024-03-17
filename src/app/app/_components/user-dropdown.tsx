@@ -27,7 +27,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
 					variant='link'
 					className='relative hover:no-underline h-8 flex items-center justify-between w-full space-x-2 !px-0'
 				>
-					<Avatar className='h-8 w-8'>
+					<Avatar className='w-8 h-8'>
 						<AvatarImage src={user.image || ''} alt='user image' />
 						<AvatarFallback className='uppercase'>
 							{user.name ? user.name.charAt(0) + user.name.charAt(1) : 'CF'}
@@ -49,7 +49,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
-						<MixerVerticalIcon className='size-3 mr-3' />
+						<MixerVerticalIcon className='mr-3 size-3' />
 						Settings
 					</DropdownMenuItem>
 				</DropdownMenuGroup>

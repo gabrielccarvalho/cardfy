@@ -5,6 +5,7 @@ import { Footer } from '@/components/landing-page/footer'
 import { Heading } from '@/components/landing-page/heading'
 import { Nav } from '@/components/landing-page/nav'
 import { NavMobile } from '@/components/landing-page/nav-mobile'
+import { OpenSource } from '@/components/landing-page/open-source'
 
 export default function Home() {
 	return (
@@ -14,6 +15,7 @@ export default function Home() {
 			<Heading />
 			<DataDisplay />
 			<Demo />
+			<OpenSource />
 			<Footer />
 			<Background />
 		</main>
