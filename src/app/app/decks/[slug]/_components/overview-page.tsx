@@ -165,10 +165,14 @@ export default function OverviewPage({ category }: { category: string }) {
 			</div>
 			<div className='flex gap-4 mt-8'>
 				<Link href={`/app/flashcards/create/${category}`}>
-					<Button>Create New Flashcard</Button>
+					<Button>Create New</Button>
 				</Link>
-				<Link href={`/app/flashcards/solve/${category}`}>
-					<Button>Solve Flashcards</Button>
+				<Link
+					href={
+						dueFlashcardsCount > 0 ? `/app/flashcards/solve/${category}` : ''
+					}
+				>
+					<Button disabled={dueFlashcardsCount === 0}>Solve Flashcards</Button>
 				</Link>
 			</div>
 		</main>
