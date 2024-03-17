@@ -15,20 +15,15 @@ import {
 	InfoCardHeaderTitle,
 	InfoCardMain,
 } from '@/components/ui/info-card'
-import { Category, Flashcard } from '@prisma/client'
-import {
-	Crosshair2Icon,
-	LapTimerIcon,
-	RocketIcon,
-	UpdateIcon,
-} from '@radix-ui/react-icons'
+import { Category, Flashcard, Review } from '@prisma/client'
+import { Crosshair2Icon, RocketIcon, UpdateIcon } from '@radix-ui/react-icons'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { ActivityCalendar } from './activity-calendar'
 
-type SubCategory = Category & {
-	flashcards: Flashcard[]
-	subCategories?: SubCategory[]
+type CategoryType = Category & {
+	flashcards: (Flashcard & { reviews: Review[] })[]
+	subCategories?: CategoryType[]
 }
 
 export default function OverviewPage({ category }: { category: string }) {
@@ -50,12 +45,7 @@ export default function OverviewPage({ category }: { category: string }) {
 
 	if (!isSuccess) return
 
-	const getDueFlashcardsCount = (
-		category: Category & {
-			flashcards: Flashcard[]
-			subCategories?: SubCategory[]
-		},
-	): number => {
+	const getDueFlashcardsCount = (category: CategoryType): number => {
 		let count = 0
 		const dueFlashcards =
 			category.flashcards?.filter(
@@ -70,34 +60,33 @@ export default function OverviewPage({ category }: { category: string }) {
 		return count
 	}
 
-	const getReviewedFlashcardsCount = (
-		category: Category & {
-			flashcards: Flashcard[]
-			subCategories?: SubCategory[]
-		},
-	): number => {
-		let count = 0
+	const getReviewedFlashcardsCount = (category: CategoryType): number => {
 		const reviewedFlashcards =
-			category.flashcards?.filter((flashcard) => flashcard.repetitions > 0) ??
-			[]
-		count += reviewedFlashcards.reduce(
-			(total, flashcard) => total + flashcard.repetitions,
+			category.flashcards?.filter(
+				(flashcard) => flashcard.reviews.length > 0,
+			) ?? []
+		const groupedReviews: { [key: string]: number } = {} // Add index signature
+		for (const flashcard of reviewedFlashcards) {
+			// Replace forEach with for...of
+			for (const review of flashcard.reviews) {
+				// Replace forEach with for...of
+				const reviewDate = new Date(review.date)
+				const key = `${reviewDate.getFullYear()}-${reviewDate.getMonth()}-${reviewDate.getDate()}`
+				if (groupedReviews[key]) {
+					groupedReviews[key] += 1
+				} else {
+					groupedReviews[key] = 1
+				}
+			}
+		}
+		const count = Object.values(groupedReviews).reduce(
+			(total, value) => total + value,
 			0,
 		)
-
-		for (const subCategory of category.subCategories ?? []) {
-			count += getReviewedFlashcardsCount(subCategory)
-		}
-
 		return count
 	}
 
-	const getFlashcardsCount = (
-		category: Category & {
-			flashcards: Flashcard[]
-			subCategories?: SubCategory[]
-		},
-	): number => {
+	const getFlashcardsCount = (category: CategoryType): number => {
 		let count = category.flashcards?.length ?? 0
 
 		for (const subCategory of category.subCategories ?? []) {
@@ -166,7 +155,7 @@ export default function OverviewPage({ category }: { category: string }) {
 				</BreadcrumbList>
 			</Breadcrumb>
 			<h1 className='text-3xl font-bold'>{data.name}</h1>
-			<div className='flex gap-4 flex-wrap'>
+			<div className='flex flex-wrap gap-4'>
 				{cardsData.map((card, index) => (
 					<InfoCard
 						key={index}

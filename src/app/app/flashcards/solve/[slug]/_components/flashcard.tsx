@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 import { Flashcard } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -11,7 +10,6 @@ import { FlashCardSkeleton } from './flashcard-skeleton'
 
 export function FlashCardComponent({ category }: { category: string }) {
 	const [reveal, setReveal] = useState(false)
-	const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
 	const queryClient = useQueryClient()
 
 	const {
@@ -48,7 +46,6 @@ export function FlashCardComponent({ category }: { category: string }) {
 
 				return prevCards.filter((card) => card.id !== graduatedCard?.id)
 			})
-			setCurrentCardIndex((prev) => prev + 1)
 			setReveal(false)
 		},
 	})
@@ -59,28 +56,30 @@ export function FlashCardComponent({ category }: { category: string }) {
 
 	const [current] = flashcards
 
-	const progress = Math.round((currentCardIndex / flashcards.length) * 100)
-
 	const questionContent = current.question.split('\n')
 	const answerContent = current.answer.split('\n')
-	const extraContent = current.extraInformation.split('\n')
+	const extraContent = current.extraInformation?.split('\n')
 
 	return (
 		<main className='h-[calc(100vh-7rem)] flex flex-col'>
 			<div className='flex flex-col items-center w-full'>
 				<Card className='p-6 md:w-3/4 flex flex-col items-center aspect-[16/10] max-w-7xl shadow-md z-10'>
 					<CardContent className='flex flex-col items-center justify-around flex-1'>
-						<p className='max-w-4xl text-xl font-bold leading-relaxed text-center'>
+						<div className='max-w-4xl text-xl font-bold leading-relaxed text-center'>
 							{reveal
-								? answerContent.map((answer: string) => <p>{answer}</p>)
-								: questionContent.map((question: string) => <p>{question}</p>)}
-						</p>
+								? answerContent.map((answer: string, i: number) => (
+										<p key={i}>{answer}</p>
+								  ))
+								: questionContent.map((question: string, i: number) => (
+										<p key={i}>{question}</p>
+								  ))}
+						</div>
 						{reveal && current.extraInformation && (
 							<>
 								<Separator className='w-full border-t-2' />
 								<p className='max-w-4xl text-xl font-bold leading-relaxed text-center'>
-									{extraContent.map((extra: string) => (
-										<p>{extra}</p>
+									{extraContent.map((extra: string, i: number) => (
+										<p key={i}>{extra}</p>
 									))}
 								</p>
 							</>
@@ -135,12 +134,6 @@ export function FlashCardComponent({ category }: { category: string }) {
 					</CardFooter>
 				</Card>
 				<div className='w-2/3 aspect-[16/10] max-w-6xl h-6 shadow-md rounded-md -mt-2 border' />
-			</div>
-			<div className='flex flex-col items-center w-full max-w-screen-md gap-4 mx-auto mt-16'>
-				<p className='text-lg font-bold'>
-					{currentCardIndex} / {flashcards.length} cards
-				</p>
-				<Progress value={progress} />
 			</div>
 		</main>
 	)

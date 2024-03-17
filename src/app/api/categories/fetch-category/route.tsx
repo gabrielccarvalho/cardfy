@@ -20,28 +20,60 @@ export async function GET(req: NextRequest) {
 				userId: session.user?.id,
 			},
 			include: {
-				flashcards: true,
+				flashcards: {
+					include: {
+						reviews: true,
+					},
+				},
 				subCategories: {
 					include: {
-						flashcards: true,
+						flashcards: {
+							include: {
+								reviews: true,
+							},
+						},
 						subCategories: {
 							include: {
-								flashcards: true,
+								flashcards: {
+									include: {
+										reviews: true,
+									},
+								},
 								subCategories: {
 									include: {
-										flashcards: true,
+										flashcards: {
+											include: {
+												reviews: true,
+											},
+										},
 										subCategories: {
 											include: {
-												flashcards: true,
+												flashcards: {
+													include: {
+														reviews: true,
+													},
+												},
 												subCategories: {
 													include: {
-														flashcards: true,
+														flashcards: {
+															include: {
+																reviews: true,
+															},
+														},
 														subCategories: {
 															include: {
-																flashcards: true,
+																flashcards: {
+																	include: {
+																		reviews: true,
+																	},
+																},
 																subCategories: {
 																	include: {
-																		flashcards: true,
+																		flashcards: {
+																			include: {
+																				reviews: true,
+																			},
+																		},
 																	},
 																},
 															},

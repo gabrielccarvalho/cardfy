@@ -55,6 +55,13 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Review {
+  id          String    @id @default(cuid())
+  date        DateTime
+  flashcardId String
+  flashcard   Flashcard @relation(fields: [flashcardId], references: [id])
+}
+
 model Flashcard {
   id               String   @id @default(cuid())
   question         String
@@ -69,6 +76,7 @@ model Flashcard {
   repetitions      Int      @default(0)
   easeFactor       Float    @default(2.5)
   nextReviewDate   DateTime @default(now())
+  reviews          Review[]
 
   @@index([categoryId])
   @@index([userId])

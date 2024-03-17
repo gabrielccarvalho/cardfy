@@ -112,9 +112,18 @@ export async function PUT(req: NextRequest) {
 			},
 		})
 
-		prisma.$disconnect()
+		await prisma.review.create({
+			data: {
+				flashcard: {
+					connect: { id },
+				},
+				date: new Date(),
+			},
+		})
+
 		return NextResponse.json({ success: true })
 	} catch (error) {
+		console.log(error)
 		return NextResponse.json({ message: 'Error graduating flashcard', error })
 	}
 }

@@ -47,8 +47,6 @@ export async function POST(req: NextRequest) {
 			},
 		})
 
-		console.log(flashcard)
-
 		prisma.$disconnect()
 		return NextResponse.json({ success: true, flashcard })
 	} catch (error) {

@@ -1,6 +1,6 @@
 'use client'
 
-import { Category, Flashcard } from '@prisma/client'
+import { Category, Flashcard, Review } from '@prisma/client'
 import moment from 'moment'
 import { useTheme } from 'next-themes'
 import { cloneElement } from 'react'
@@ -9,16 +9,18 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 
 type CategoryType = Category & {
-	flashcards: Flashcard[]
+	flashcards: (Flashcard & { reviews: Review[] })[]
 	subCategories?: CategoryType[]
 }
+
+type FlashcardType = Flashcard & { reviews: Review[] }
 
 type Props = {
 	data: CategoryType
 }
 
 const getActivityData = (category: CategoryType) => {
-	const grouped: { [key: string]: number } = {}
+	const grouped: { [key: string]: { count: number; level: number } } = {}
 
 	const level = (count: number) => {
 		if (count < 1) return 0
@@ -28,8 +30,8 @@ const getActivityData = (category: CategoryType) => {
 		return 4
 	}
 
-	const getAllFlashcards = (category: CategoryType): Flashcard[] => {
-		let flashcards: Flashcard[] = []
+	const getAllFlashcards = (category: CategoryType): FlashcardType[] => {
+		let flashcards: FlashcardType[] = []
 		if (category.flashcards) {
 			flashcards = category.flashcards
 		}
@@ -45,17 +47,30 @@ const getActivityData = (category: CategoryType) => {
 	for (const flashcard of flashcards) {
 		const date = new Date(flashcard.nextReviewDate).toISOString().split('T')[0]
 		if (grouped[date]) {
-			grouped[date]++
+			grouped[date].count++
 		} else {
-			grouped[date] = 1
+			grouped[date] = { count: 1, level: level(1) }
 		}
 	}
 
-	const groupedFlashcards = Object.entries(grouped).map(([date, count]) => ({
-		date,
-		count,
-		level: level(count as number),
-	}))
+	for (const flashcard of flashcards) {
+		for (const review of flashcard.reviews) {
+			const date = new Date(review.date).toISOString().split('T')[0]
+			if (grouped[date]) {
+				grouped[date].count++
+			} else {
+				grouped[date] = { count: 1, level: level(1) }
+			}
+		}
+	}
+
+	const groupedFlashcards = Object.entries(grouped).map(
+		([date, { count, level }]) => ({
+			date,
+			count,
+			level,
+		}),
+	)
 
 	const sortedFlashcards = groupedFlashcards.sort((a, b) => {
 		const dateA = new Date(a.date)
@@ -95,7 +110,7 @@ export function ActivityCalendar({ data }: Props) {
 	const grouppedFlashcards = getActivityData(data)
 
 	return (
-		<div className='flex flex-col gap-12 w-full my-6'>
+		<div className='flex flex-col w-full gap-12 my-6'>
 			<div className='flex flex-col'>
 				<h3 className='text-2xl font-bold'>Activity Calendar</h3>
 				<p className='text-gray-500'>
@@ -122,7 +137,9 @@ export function ActivityCalendar({ data }: Props) {
 					const activityDate = moment(activity.date).format('dddd, MMMM Do')
 
 					const activityPreposition =
-						new Date(activity.date) > new Date() ? 'for' : 'on'
+						new Date(activity.date) > new Date()
+							? 'scheduled for'
+							: 'reviewed on'
 
 					const activityCount =
 						activity.count === 1
