@@ -8,9 +8,9 @@ export default function middleware(request: NextRequest) {
 	if (pathname === '/auth' && token) {
 		return NextResponse.redirect(new URL(getUrl('/app')))
 	}
-	if (pathname === '/' && token) {
-		return NextResponse.redirect(new URL(getUrl('/app')))
-	}
+	// if (pathname === '/' && token) {
+	// 	return NextResponse.redirect(new URL(getUrl('/app')))
+	// }
 
 	if (pathname.includes('/app') && !token) {
 		return NextResponse.redirect(new URL(getUrl('/auth')))

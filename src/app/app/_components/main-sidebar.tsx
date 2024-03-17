@@ -61,12 +61,8 @@ export function MainSidebar({ user }: MainSidebarProps) {
 						<SidebarNavHeaderTitle>Extra Links</SidebarNavHeaderTitle>
 					</SidebarNavHeader>
 					<SidebarNavMain>
-						<SidebarNavLink href='#' active={isActive('#')}>
-							Need any help?
-						</SidebarNavLink>
-						<SidebarNavLink href='#' active={isActive('#')}>
-							Site
-						</SidebarNavLink>
+						<SidebarNavLink href='#'>Need any help?</SidebarNavLink>
+						<SidebarNavLink href='/'>Site</SidebarNavLink>
 					</SidebarNavMain>
 				</SidebarNav>
 			</SidebarMain>
