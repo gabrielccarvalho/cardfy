@@ -61,28 +61,13 @@ export default function OverviewPage({ category }: { category: string }) {
 	}
 
 	const getReviewedFlashcardsCount = (category: CategoryType): number => {
-		const reviewedFlashcards =
-			category.flashcards?.filter(
-				(flashcard) => flashcard.reviews.length > 0,
-			) ?? []
-		const groupedReviews: { [key: string]: number } = {} // Add index signature
-		for (const flashcard of reviewedFlashcards) {
-			// Replace forEach with for...of
-			for (const review of flashcard.reviews) {
-				// Replace forEach with for...of
-				const reviewDate = new Date(review.date)
-				const key = `${reviewDate.getFullYear()}-${reviewDate.getMonth()}-${reviewDate.getDate()}`
-				if (groupedReviews[key]) {
-					groupedReviews[key] += 1
-				} else {
-					groupedReviews[key] = 1
-				}
-			}
+		let count = 0
+		for (const flashcard of category.flashcards ?? []) {
+			count += flashcard.reviews.length
 		}
-		const count = Object.values(groupedReviews).reduce(
-			(total, value) => total + value,
-			0,
-		)
+		for (const subCategory of category.subCategories ?? []) {
+			count += getReviewedFlashcardsCount(subCategory)
+		}
 		return count
 	}
 
@@ -109,7 +94,7 @@ export default function OverviewPage({ category }: { category: string }) {
 			disabled: false,
 		},
 		{
-			title: 'Due Today',
+			title: 'Due Now',
 			icon: <Crosshair2Icon className='size-5' />,
 			count: dueFlashcardsCount,
 			unity: 'cards',
