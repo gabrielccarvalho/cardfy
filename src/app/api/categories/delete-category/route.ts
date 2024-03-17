@@ -20,24 +20,6 @@ export async function DELETE(req: NextRequest) {
 			})
 		}
 
-		const category = await prisma.category.findUnique({
-			where: {
-				id,
-				userId: session.user?.id,
-			},
-			include: {
-				flashcards: true,
-			},
-		})
-
-		if (category?.flashcards.length) {
-			await prisma.flashcard.deleteMany({
-				where: {
-					categoryId: category.id,
-				},
-			})
-		}
-
 		await prisma.category.deleteMany({
 			where: {
 				parentId: id,

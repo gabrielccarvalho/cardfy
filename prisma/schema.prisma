@@ -59,7 +59,7 @@ model Review {
   id          String    @id @default(cuid())
   date        DateTime
   flashcardId String
-  flashcard   Flashcard @relation(fields: [flashcardId], references: [id])
+  flashcard   Flashcard @relation(fields: [flashcardId], references: [id], onDelete: Cascade)
 }
 
 model Flashcard {
@@ -69,7 +69,7 @@ model Flashcard {
   slug             String
   extraInformation String?
   categoryId       String
-  category         Category @relation(fields: [categoryId], references: [id])
+  category         Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   userId           String
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   interval         Float    @default(1)
