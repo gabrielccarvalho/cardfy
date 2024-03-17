@@ -1,7 +1,7 @@
 'use client'
 
 import { animate, motion } from 'framer-motion'
-import { RefAttributes, RefObject, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Github } from '../icons'
 import { Button } from '../ui/button'
 
