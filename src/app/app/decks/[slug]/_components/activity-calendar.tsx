@@ -137,9 +137,7 @@ export function ActivityCalendar({ data }: Props) {
 					const activityDate = moment(activity.date).format('dddd, MMMM Do')
 
 					const activityPreposition =
-						new Date(activity.date) > new Date()
-							? 'scheduled for'
-							: 'reviewed on'
+						new Date(activity.date) > new Date() ? 'for' : 'on'
 
 					const activityCount =
 						activity.count === 1
