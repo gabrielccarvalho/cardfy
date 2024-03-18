@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { DecksList } from './deck-list'
 import { AddCategoryModal } from './modals/add-category'
+import { LoadingSkeleton } from './skeleton'
 
 const searchFilterSchema = z.object({
 	search: z.string(),
@@ -83,8 +84,6 @@ export function DecksPage() {
 
 	const handleOnDragEnd = async (result: DropResult) => {
 		const { destination, source, draggableId } = result
-
-		console.log(destination, source, draggableId)
 
 		if (!destination) return // If there is no destination, do nothing
 
@@ -156,7 +155,7 @@ export function DecksPage() {
 					</form>
 				</div>
 				{isLoading ? (
-					<div />
+					<LoadingSkeleton />
 				) : (
 					<Droppable droppableId='editor' type='deckList'>
 						{(provided) => (

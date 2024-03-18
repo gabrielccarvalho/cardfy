@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export function FlashCardSkeleton() {
@@ -18,10 +17,6 @@ export function FlashCardSkeleton() {
 					</CardFooter>
 				</Card>
 				<div className='w-2/3 aspect-[16/10] max-w-6xl h-6 shadow-md rounded-md -mt-2 border' />
-			</div>
-			<div className='flex flex-col items-center w-full max-w-screen-md gap-4 mx-auto mt-16'>
-				<Skeleton className='w-full h-6' />
-				<Progress value={50} />
 			</div>
 		</main>
 	)

@@ -130,9 +130,7 @@ export function ActivityCalendar({ data }: Props) {
 					dark: ['#121212', '#0D4429', '#016D32', '#27A641', '#3AD353'],
 				}}
 				data={grouppedFlashcards}
-				labels={{
-					totalCount: '{{count}} cards in {{year}}',
-				}}
+				hideTotalCount
 				renderBlock={(block, activity) => {
 					const activityDate = moment(activity.date).format('dddd, MMMM Do')
 

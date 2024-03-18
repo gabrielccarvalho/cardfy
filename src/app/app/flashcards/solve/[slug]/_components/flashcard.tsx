@@ -6,17 +6,14 @@ import { Separator } from '@/components/ui/separator'
 import { Flashcard } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { EmptyState } from './empty-state'
 import { FlashCardSkeleton } from './flashcard-skeleton'
 
 export function FlashCardComponent({ category }: { category: string }) {
 	const [reveal, setReveal] = useState(false)
 	const queryClient = useQueryClient()
 
-	const {
-		data: flashcards,
-		isLoading,
-		isSuccess,
-	} = useQuery({
+	const { data: flashcards, isLoading } = useQuery({
 		queryKey: ['flashcards'],
 		queryFn: async () => {
 			const response = await fetch(
@@ -51,8 +48,7 @@ export function FlashCardComponent({ category }: { category: string }) {
 	})
 
 	if (isLoading) return <FlashCardSkeleton />
-	if (!isSuccess) return
-	if (flashcards.length === 0) return <div />
+	if (flashcards.length === 0) return <EmptyState />
 
 	const [current] = flashcards
 

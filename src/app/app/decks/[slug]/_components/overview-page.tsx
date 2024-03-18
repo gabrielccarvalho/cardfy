@@ -20,6 +20,7 @@ import { Crosshair2Icon, RocketIcon, UpdateIcon } from '@radix-ui/react-icons'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { ActivityCalendar } from './activity-calendar'
+import { LoadingSkeleton } from './skeleton'
 
 type CategoryType = Category & {
 	flashcards: (Flashcard & { reviews: Review[] })[]
@@ -27,7 +28,7 @@ type CategoryType = Category & {
 }
 
 export default function OverviewPage({ category }: { category: string }) {
-	const { data, isSuccess } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ['category'],
 		queryFn: async () => {
 			const res = await fetch(`/api/categories/fetch-category?id=${category}`, {
@@ -43,7 +44,7 @@ export default function OverviewPage({ category }: { category: string }) {
 		},
 	})
 
-	if (!isSuccess) return
+	if (isLoading) return <LoadingSkeleton />
 
 	const getDueFlashcardsCount = (category: CategoryType): number => {
 		let count = 0
