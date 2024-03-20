@@ -89,8 +89,8 @@ export function SpacedRepetitionFeature() {
 					<div className='w-full flex items-center flex-col space-y-1 max-w-sm text-center mx-auto'>
 						<h4 className='text-xl font-semibold'>Due Dates</h4>
 						<p className='text-gray-600'>
-							Cardfy gives you a clear view of when your cards are due and how
-							many each day.
+							Cardfy learns from your study and suggest the best time to review
+							the cards.
 						</p>
 					</div>
 				</motion.div>
