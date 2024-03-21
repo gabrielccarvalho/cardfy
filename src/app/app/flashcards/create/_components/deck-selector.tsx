@@ -27,36 +27,39 @@ import {
 import { useMutationObserver } from '@/hooks/use-mutation-observer'
 import { cn } from '@/lib/utils'
 
-import { Card, CardType } from './data/card-types'
+import { Deck, DeckType } from './data/deck-types'
 
-interface CardTypeSelectorProps extends PopoverProps {
-	types: readonly CardType[]
-	cardTypes: Card[]
+interface DeckSelectorProps extends PopoverProps {
+	types: readonly DeckType[]
+	deckTypes: Deck[]
+	currentDeck?: string
 }
 
-export function CardTypeSelector({
-	cardTypes,
+export function DeckSelector({
+	currentDeck,
+	deckTypes,
 	types,
 	...props
-}: CardTypeSelectorProps) {
+}: DeckSelectorProps) {
 	const [open, setOpen] = React.useState(false)
-	const [selectedCardType, setSelectedCardType] = React.useState<Card>(
-		cardTypes[0],
+	const [selectedDeckType, setSelectedDeckType] = React.useState<Deck>(
+		deckTypes[
+			currentDeck ? deckTypes.findIndex((deck) => deck.id === currentDeck) : 0
+		],
 	)
 
 	return (
 		<div className='grid gap-2'>
 			<HoverCard openDelay={200}>
 				<HoverCardTrigger asChild>
-					<Label htmlFor='card-type'>Card Type</Label>
+					<Label htmlFor='card-type'>Deck</Label>
 				</HoverCardTrigger>
 				<HoverCardContent
 					align='start'
 					className='w-[260px] text-sm'
 					side='left'
 				>
-					There are many possible card types to choose from. Choose the one who
-					suits better your needs.
+					Choose the deck you want to this flashcard be added to.
 				</HoverCardContent>
 			</HoverCard>
 			<Popover open={open} onOpenChange={setOpen} {...props}>
@@ -68,7 +71,7 @@ export function CardTypeSelector({
 						aria-label='Select a card type'
 						className='justify-between w-full'
 					>
-						{selectedCardType ? selectedCardType.name : 'Select a card type...'}
+						{selectedDeckType ? selectedDeckType.name : 'Select a deck...'}
 						<CaretSortIcon className='w-4 h-4 ml-2 opacity-50 shrink-0' />
 					</Button>
 				</PopoverTrigger>
@@ -79,16 +82,16 @@ export function CardTypeSelector({
 							<CommandEmpty>No Card Types found.</CommandEmpty>
 							{types.map((type) => (
 								<CommandGroup key={type} heading={type}>
-									{cardTypes
-										.filter((card) => card.type === type)
-										.map((card) => (
+									{deckTypes
+										.filter((deck) => deck.type === type)
+										.map((deck) => (
 											<ModelItem
-												key={card.id}
-												cardType={card}
-												isSelected={selectedCardType?.id === card.id}
+												key={deck.id}
+												deckType={deck}
+												isSelected={selectedDeckType?.id === deck.id}
 												// onPeek={(card) => setPeekedCardTypes(card)}
 												onSelect={() => {
-													setSelectedCardType(card)
+													setSelectedDeckType(deck)
 													setOpen(false)
 												}}
 											/>
@@ -104,14 +107,14 @@ export function CardTypeSelector({
 }
 
 interface ModelItemProps {
-	cardType: Card
+	deckType: Deck
 	isSelected: boolean
 	onSelect: () => void
-	onPeek?: (type: Card) => void
+	onPeek?: (type: Deck) => void
 }
 
 function ModelItem({
-	cardType,
+	deckType,
 	isSelected,
 	onSelect,
 	onPeek = () => {},
@@ -122,7 +125,7 @@ function ModelItem({
 		for (const mutation of mutations) {
 			if (mutation.type === 'attributes') {
 				if (mutation.attributeName === 'aria-selected') {
-					onPeek(cardType)
+					onPeek(deckType)
 				}
 			}
 		}
@@ -130,12 +133,12 @@ function ModelItem({
 
 	return (
 		<CommandItem
-			key={cardType.id}
+			key={deckType.id}
 			onSelect={onSelect}
 			ref={ref}
 			className='aria-selected:bg-primary aria-selected:text-primary-foreground'
 		>
-			{cardType.name}
+			{deckType.name}
 			<CheckIcon
 				className={cn(
 					'ml-auto h-4 w-4',

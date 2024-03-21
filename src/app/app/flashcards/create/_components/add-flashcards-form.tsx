@@ -72,7 +72,7 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 	}
 
 	return (
-		<main className='grid grid-cols-4 space-x-6 space-y-4 h-[calc(100vh-8rem)]'>
+		<main className='grid space-x-6 space-y-4 h-[calc(100vh-8rem)] col-span-5'>
 			<div className='col-span-3 mb-2 space-y-4'>
 				<form onSubmit={handleSubmit(handleCreateFlashcard)}>
 					<div className='flex flex-col flex-1'>
@@ -142,9 +142,6 @@ export function AddFlashCardForm({ categoryId }: { categoryId: string }) {
 						<Button type='submit'>Create Flashcard</Button>
 					</div>
 				</form>
-			</div>
-			<div className='col-span-1 p-6 border rounded-md border-border'>
-				<CardTypeSelector types={types} cardTypes={cardTypes} />
 			</div>
 		</main>
 	)
