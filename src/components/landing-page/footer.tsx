@@ -12,6 +12,7 @@ import { FEATURES_LIST } from './content'
 const navigation = {
 	features: FEATURES_LIST.map((feature) => ({
 		name: feature.shortTitle,
+		available: feature.available,
 		href: `/${feature.slug}`,
 	})),
 	product: [
@@ -22,9 +23,9 @@ const navigation = {
 		{ name: 'Help Center', href: '/help' },
 	],
 	compare: [
-		{ name: 'Anki', href: 'https://ankiweb.net/' },
-		{ name: 'Quizlet', href: 'https://quizlet.com/' },
-		{ name: 'Brainscape', href: 'https://www.brainscape.com/' },
+		{ name: 'Anki', href: '#' },
+		{ name: 'Quizlet', href: '#' },
+		{ name: 'Brainscape', href: '#' },
 	],
 	legal: [
 		{ name: 'Privacy', href: '/privacy' },
@@ -119,16 +120,19 @@ export function Footer({ onlyFooter }: { onlyFooter?: boolean }) {
 									Features
 								</h3>
 								<ul className='mt-4 space-y-4'>
-									{navigation.features.map((item) => (
-										<li key={item.name}>
-											<Link
-												href={createHref(item.href)}
-												className='text-sm text-gray-500 hover:text-gray-800'
-											>
-												{item.name}
-											</Link>
-										</li>
-									))}
+									{navigation.features.map(
+										(item) =>
+											item.available && (
+												<li key={item.name}>
+													<Link
+														href={createHref(item.href)}
+														className='text-sm text-gray-500 hover:text-gray-800'
+													>
+														{item.name}
+													</Link>
+												</li>
+											),
+									)}
 								</ul>
 							</div>
 							<div className='mt-10 md:mt-0'>

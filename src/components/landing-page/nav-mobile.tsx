@@ -60,26 +60,18 @@ export function NavMobile() {
 						{openFeatures && (
 							<div className='grid gap-4 overflow-hidden py-4'>
 								{FEATURES_LIST.map(
-									({ slug, icon: Icon, shortTitle, available }) => (
-										<Link
-											key={slug}
-											href={available ? `/${slug}` : '#'}
-											onClick={() => setOpen(false)}
-											className='flex w-full space-x-2'
-										>
-											{available ? (
-												<Icon className='h-5 w-5 text-gray-500' />
-											) : (
-												<LockClosedIcon className='h-5 w-5 text-gray-500' />
-											)}
-											<span
-												className='text-sm aria-disabled:text-gray-500 aria-disabled:italic'
-												aria-disabled={!available}
+									({ slug, icon: Icon, shortTitle, available }) =>
+										available && (
+											<Link
+												key={slug}
+												href={`/${slug}`}
+												onClick={() => setOpen(false)}
+												className='flex w-full space-x-2'
 											>
-												{shortTitle}
-											</span>
-										</Link>
-									),
+												<Icon className='h-5 w-5 text-gray-500' />
+												<span className='text-sm'>{shortTitle}</span>
+											</Link>
+										),
 								)}
 							</div>
 						)}

@@ -8,7 +8,6 @@ import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { Logo } from '../logo'
-import { Badge } from '../ui/badge'
 import { FEATURES_LIST } from './content'
 
 export const navItems = [
@@ -98,27 +97,25 @@ export function Nav() {
 														title: string
 														shortTitle: string
 														available: boolean
-													}) => (
-														<Link
-															key={slug}
-															href={available ? `/${slug}` : '#'}
-															aria-disabled={available}
-															className='rounded-lg p-3 transition-colors hover:bg-gray-100 active:bg-gray-200'
-														>
-															<div className='flex items-center space-x-2'>
-																<Icon className='h-4 w-4 text-gray-700' />
-																<p className='text-sm font-medium text-gray-700'>
-																	{shortTitle}
+													}) =>
+														available && (
+															<Link
+																key={slug}
+																href={`/${slug}`}
+																aria-disabled={available}
+																className='rounded-lg p-3 transition-colors hover:bg-gray-100 active:bg-gray-200'
+															>
+																<div className='flex items-center space-x-2'>
+																	<Icon className='h-4 w-4 text-gray-700' />
+																	<p className='text-sm font-medium text-gray-700'>
+																		{shortTitle}
+																	</p>
+																</div>
+																<p className='mt-1 line-clamp-1 text-sm text-gray-500'>
+																	{title}
 																</p>
-																{!available && (
-																	<Badge className='max-w-14'>SOON</Badge>
-																)}
-															</div>
-															<p className='mt-1 line-clamp-1 text-sm text-gray-500'>
-																{title}
-															</p>
-														</Link>
-													),
+															</Link>
+														),
 												)}
 											</div>
 										</NavigationMenuPrimitive.Content>
