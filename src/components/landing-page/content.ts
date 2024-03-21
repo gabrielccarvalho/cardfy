@@ -9,17 +9,17 @@ export const FEATURES_LIST = [
 		available: true,
 	},
 	{
-		title: 'Powerful Analytics For The Modern Marketer',
-		shortTitle: 'Advanced Analytics',
-		icon: BarChart,
-		slug: 'features/analytics',
-		available: false,
-	},
-	{
 		title: 'Compete With Your Friends',
 		shortTitle: 'Compete',
 		icon: Users,
 		slug: 'features/compete',
+		available: true,
+	},
+	{
+		title: 'Powerful Analytics For The Modern Marketer',
+		shortTitle: 'Advanced Analytics',
+		icon: BarChart,
+		slug: 'features/analytics',
 		available: false,
 	},
 	{
