@@ -8,6 +8,7 @@ import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { Logo } from '../logo'
+import { Badge } from '../ui/badge'
 import { FEATURES_LIST } from './content'
 
 export const navItems = [
@@ -90,15 +91,18 @@ export function Nav() {
 														icon: Icon,
 														title,
 														shortTitle,
+														available,
 													}: {
 														slug: string
 														icon: React.ElementType
 														title: string
 														shortTitle: string
+														available: boolean
 													}) => (
 														<Link
 															key={slug}
-															href={`/${slug}`}
+															href={available ? `/${slug}` : '#'}
+															aria-disabled={available}
 															className='rounded-lg p-3 transition-colors hover:bg-gray-100 active:bg-gray-200'
 														>
 															<div className='flex items-center space-x-2'>
@@ -106,6 +110,9 @@ export function Nav() {
 																<p className='text-sm font-medium text-gray-700'>
 																	{shortTitle}
 																</p>
+																{!available && (
+																	<Badge className='max-w-14'>SOON</Badge>
+																)}
 															</div>
 															<p className='mt-1 line-clamp-1 text-sm text-gray-500'>
 																{title}

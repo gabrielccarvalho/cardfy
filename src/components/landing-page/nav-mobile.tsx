@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
+import { LockClosedIcon } from '@radix-ui/react-icons'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -58,17 +59,28 @@ export function NavMobile() {
 						</button>
 						{openFeatures && (
 							<div className='grid gap-4 overflow-hidden py-4'>
-								{FEATURES_LIST.map(({ slug, icon: Icon, shortTitle }) => (
-									<Link
-										key={slug}
-										href={`/${slug}`}
-										onClick={() => setOpen(false)}
-										className='flex w-full space-x-2'
-									>
-										<Icon className='h-5 w-5 text-gray-500' />
-										<span className='text-sm'>{shortTitle}</span>
-									</Link>
-								))}
+								{FEATURES_LIST.map(
+									({ slug, icon: Icon, shortTitle, available }) => (
+										<Link
+											key={slug}
+											href={available ? `/${slug}` : '#'}
+											onClick={() => setOpen(false)}
+											className='flex w-full space-x-2'
+										>
+											{available ? (
+												<Icon className='h-5 w-5 text-gray-500' />
+											) : (
+												<LockClosedIcon className='h-5 w-5 text-gray-500' />
+											)}
+											<span
+												className='text-sm aria-disabled:text-gray-500 aria-disabled:italic'
+												aria-disabled={!available}
+											>
+												{shortTitle}
+											</span>
+										</Link>
+									),
+								)}
 							</div>
 						)}
 					</li>
