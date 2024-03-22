@@ -24,7 +24,7 @@ export function PageHeader({
 	return (
 		<header
 			className={cn([
-				'flex items-center h-14 px-6 border-b border-border',
+				'flex items-center h-14 px-6 border-b border-border sticky top-0 bg-background/30 backdrop-blur-md z-50',
 				className,
 			])}
 			{...props}

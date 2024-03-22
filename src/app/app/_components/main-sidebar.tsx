@@ -14,8 +14,12 @@ import {
 } from '@/components/dashboard/sidebar'
 import { Logo } from '@/components/logo'
 import { StoreIcon } from '@/components/ui/icons'
-// import { UpgradeToProCard } from '@/components/upgrade-to-pro'
-import { CardStackIcon, DashboardIcon } from '@radix-ui/react-icons'
+import {
+	ArchiveIcon,
+	CardStackIcon,
+	DashboardIcon,
+} from '@radix-ui/react-icons'
+import { Flashlight } from 'lucide-react'
 import { Session } from 'next-auth'
 import { usePathname } from 'next/navigation'
 import { UserDropdown } from './user-dropdown'
@@ -34,7 +38,7 @@ export function MainSidebar({ user }: MainSidebarProps) {
 
 	return (
 		<Sidebar>
-			<SidebarHeader>
+			<SidebarHeader className='sticky top-0'>
 				<Logo />
 				<SidebarHeaderTitle>Cardfy</SidebarHeaderTitle>
 			</SidebarHeader>
@@ -48,6 +52,13 @@ export function MainSidebar({ user }: MainSidebarProps) {
 						<SidebarNavLink href='/app/decks' active={isActive('/app/decks')}>
 							<CardStackIcon className='mr-3 size-5' />
 							Decks
+						</SidebarNavLink>
+						<SidebarNavLink
+							href='/app/flashcards/list'
+							active={isActive('/app/flashcards/list')}
+						>
+							<Flashlight strokeWidth={1.5} className='mr-3 size-5' />
+							Flashcards
 						</SidebarNavLink>
 						<SidebarNavLink href='/app/store' active={isActive('/app/store')}>
 							<StoreIcon className='mr-3 size-5' />
@@ -67,9 +78,9 @@ export function MainSidebar({ user }: MainSidebarProps) {
 				</SidebarNav>
 			</SidebarMain>
 			{/* 
-			<SidebarMain className='my-6'>
-				<UpgradeToProCard />
-			</SidebarMain> */}
+				<SidebarMain className='my-6'>
+					<UpgradeToProCard />
+				</SidebarMain> */}
 
 			<SidebarFooter>
 				<UserDropdown user={user} />
