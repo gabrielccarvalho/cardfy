@@ -14,11 +14,7 @@ import {
 } from '@/components/dashboard/sidebar'
 import { Logo } from '@/components/logo'
 import { StoreIcon } from '@/components/ui/icons'
-import {
-	ArchiveIcon,
-	CardStackIcon,
-	DashboardIcon,
-} from '@radix-ui/react-icons'
+import { CardStackIcon, DashboardIcon } from '@radix-ui/react-icons'
 import { Flashlight } from 'lucide-react'
 import { Session } from 'next-auth'
 import { usePathname } from 'next/navigation'

@@ -25,8 +25,10 @@ import {
 	MixerHorizontalIcon,
 } from '@radix-ui/react-icons'
 import { toast } from 'sonner'
+import { AlertDeleteFlashcard } from '../modals/delete-card-modal'
 
 export type dataType = {
+	id: string
 	category: string
 	slug: string
 	question: string
@@ -190,12 +192,12 @@ export const columns: ColumnDef<dataType>[] = [
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuLabel>Card Actions</DropdownMenuLabel>
+						<DropdownMenuItem>Preview card</DropdownMenuItem>
 						<DropdownMenuItem>Edit card</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuLabel>Danger</DropdownMenuLabel>
-						<DropdownMenuItem className='flex items-center'>
-							<ExclamationTriangleIcon className='mr-2 text-red-500' />
-							Delete card
+						<DropdownMenuItem asChild>
+							<AlertDeleteFlashcard id={flashcard.id} />
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
