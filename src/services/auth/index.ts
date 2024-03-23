@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
-import EmailProvider from 'next-auth/providers/email'
+import EmailProvider from 'next-auth/providers/nodemailer'
 
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '../database'
@@ -15,6 +15,7 @@ export const {
 		verifyRequest: '/auth',
 		newUser: '/app',
 	},
+	trustHost: true,
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		EmailProvider({
@@ -22,20 +23,4 @@ export const {
 			from: process.env.EMAIL_FROM,
 		}),
 	],
-	// callbacks: {
-	// 	jwt({ token, account, user }) {
-	// 		if (account) {
-	// 			token.accessToken = account.access_token
-	// 			token.id = user?.id
-	// 		}
-	// 		return token
-	// 	},
-	// 	session: ({ session, token }) => ({
-	// 		...session,
-	// 		user: {
-	// 			...session.user,
-	// 			id: token.sub,
-	// 		},
-	// 	}),
-	// },
 })

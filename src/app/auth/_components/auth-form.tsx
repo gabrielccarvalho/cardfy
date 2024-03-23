@@ -26,7 +26,7 @@ export function AuthForm() {
 		async (data: z.infer<typeof formSchema>) => {
 			setIsSubmitting(true)
 			try {
-				await signIn('email', { email: data.email, redirect: false })
+				await signIn('nodemailer', { email: data.email, redirect: false })
 				setIsSubmitting(false)
 
 				toast('Magic Link Sent 🎉', {

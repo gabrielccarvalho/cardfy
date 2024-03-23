@@ -121,6 +121,7 @@ export async function PUT(req: NextRequest) {
 			},
 		})
 
+		prisma.$disconnect()
 		return NextResponse.json({ success: true })
 	} catch (error) {
 		console.log(error)

@@ -142,15 +142,15 @@ export const columns: ColumnDef<dataType>[] = [
 			)
 		},
 	},
-	// {
-	// 	accessorKey: 'repetitions',
-	// 	header: ({ column }) => (
-	// 		<DataTableColumnHeader column={column} title='repetitions' />
-	// 	),
-	// 	cell: ({ row }) => {
-	// 		return <div className='font-medium'>{row.getValue('repetitions')}</div>
-	// 	},
-	// },
+	{
+		accessorKey: 'repetitions',
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='repetitions' />
+		),
+		cell: ({ row }) => {
+			return <div className='font-medium'>{row.getValue('repetitions')}</div>
+		},
+	},
 	{
 		id: 'actions',
 		cell: ({ row }) => {

@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 export async function GET() {
 	try {
 		const session = await auth()
+
 		if (!session)
 			return NextResponse.json({
 				status: 401,
@@ -22,14 +23,17 @@ export async function GET() {
 						name: true,
 					},
 				},
-				_count: {
-					select: { reviews: true },
-				},
 			},
 		})
 
+		prisma.$disconnect()
 		return NextResponse.json({ success: true, flashcards })
 	} catch (error) {
-		return NextResponse.json({ message: 'Error fetching flashcards', error })
+		return NextResponse.json({
+			message: 'Error fetching all flashcards',
+			error,
+		})
 	}
 }
+
+export const dynamic = 'force-dynamic'

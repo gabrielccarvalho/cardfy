@@ -90,6 +90,7 @@ export async function GET(req: NextRequest) {
 
 		includeSubcategories(category.subCategories)
 
+		prisma.$disconnect()
 		return NextResponse.json({ success: true, flashcards })
 	} catch (error) {
 		return NextResponse.json({ message: 'Error fetching flashcards', error })

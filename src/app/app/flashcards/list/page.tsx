@@ -1,7 +1,7 @@
 import { PageLayout } from '@/components/dashboard/page'
 import { FlashcardsDataTable } from './_components/main-component'
 
-export default async function FlashcardListPage() {
+export default function FlashcardListPage() {
 	return (
 		<PageLayout title='All Flashcards'>
 			<FlashcardsDataTable />

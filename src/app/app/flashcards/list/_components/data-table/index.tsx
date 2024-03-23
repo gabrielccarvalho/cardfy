@@ -21,21 +21,36 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
+import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { DataTableViewOptions } from './column-toggle'
 import { DataTablePagination } from './pagination'
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
-	data: TData[] | undefined
 }
 
 export function DataTable<TData, TValue>({
 	columns,
-	data,
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+
+	const { data } = useQuery({
+		queryKey: ['flashcards'],
+		queryFn: async () => {
+			const res = await fetch('/api/flashcards/fetch-all-cards', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+
+			const data = await res.json()
+
+			return data.flashcards
+		},
+	})
 
 	const table = useReactTable({
 		data: data || [],
