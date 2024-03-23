@@ -15,7 +15,7 @@ export const {
 		verifyRequest: '/auth',
 		newUser: '/app',
 	},
-	trustHost: true,
+	secret: process.env.AUTH_SECRET,
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		EmailProvider({
