@@ -16,6 +16,7 @@ export const {
 		newUser: '/app',
 	},
 	secret: process.env.AUTH_SECRET,
+	trustHost: true,
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		EmailProvider({
@@ -23,12 +24,4 @@ export const {
 			from: process.env.EMAIL_FROM,
 		}),
 	],
-	callbacks: {
-		async jwt({ token, user }) {
-			if (user) {
-				token.id = user.id
-			}
-			return token
-		},
-	},
 })

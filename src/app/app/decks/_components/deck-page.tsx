@@ -82,31 +82,46 @@ export function DecksPage() {
 		setOpenAddCategoryModal(false)
 	}
 
+	type CategoryType = (Category & {
+		flashcards: Flashcard[]
+		subCategories?: (Category & { flashcards: Flashcard[] })[]
+	})[]
+
 	const handleOnDragEnd = async (result: DropResult) => {
 		const { destination, source, draggableId } = result
 
-		if (!destination) return // If there is no destination, do nothing
+		if (!destination) return
 
 		if (
 			destination.droppableId === source.droppableId &&
 			destination.index === source.index
 		)
-			return // If the draggable item is dropped in the same position, do nothing
+			return
 
-		if (!isSuccess) return // If the categories are not loaded, do nothing
+		if (!isSuccess) return
 
-		await fetch('/api/categories/move-category', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				categoryId: draggableId,
-				parentId: destination.droppableId,
-			}),
-		})
+		try {
+			const response = await fetch('/api/categories/move-category', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					categoryId: draggableId,
+					parentId: destination.droppableId,
+				}),
+			})
 
-		queryClient.invalidateQueries()
+			if (response.ok) {
+				queryClient.invalidateQueries()
+			} else {
+				// Handle any errors from the server
+				console.error('Server error:', response.status)
+			}
+		} catch (err) {
+			// Handle any network errors
+			console.error('Network error:', err)
+		}
 	}
 
 	return (

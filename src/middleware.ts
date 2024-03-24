@@ -12,9 +12,6 @@ export default function middleware(request: NextRequest) {
 			new URL(`${process.env.NEXT_PUBLIC_APP_URL}/app`),
 		)
 	}
-	// if (pathname === '/' && token) {
-	// 	return NextResponse.redirect(new URL(getUrl('/app')))
-	// }
 
 	if (pathname.includes('/app') && !token) {
 		return NextResponse.redirect(

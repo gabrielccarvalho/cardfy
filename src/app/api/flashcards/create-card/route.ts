@@ -16,8 +16,6 @@ export async function POST(req: NextRequest) {
 
 	const slug = normalizeToSlug(front)
 
-	console.log(slug)
-
 	try {
 		const session = await auth()
 		if (!session) {
