@@ -23,4 +23,12 @@ export const {
 			from: process.env.EMAIL_FROM,
 		}),
 	],
+	callbacks: {
+		async jwt({ token, user }) {
+			if (user) {
+				token.id = user.id
+			}
+			return token
+		},
+	},
 })
