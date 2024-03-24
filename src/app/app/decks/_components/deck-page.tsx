@@ -71,22 +71,6 @@ export function DecksPage() {
 		queryFn: fetchCategories,
 	})
 
-	const addCategory = (category: Category) => {
-		queryClient.setQueryData(
-			['categories', searchParam],
-			(oldData: Category[]) => {
-				return [...oldData, category]
-			},
-		)
-
-		setOpenAddCategoryModal(false)
-	}
-
-	type CategoryType = (Category & {
-		flashcards: Flashcard[]
-		subCategories?: (Category & { flashcards: Flashcard[] })[]
-	})[]
-
 	const handleOnDragEnd = async (result: DropResult) => {
 		const { destination, source, draggableId } = result
 
@@ -138,7 +122,7 @@ export function DecksPage() {
 							<AddCategoryModal
 								open={openAddCategoryModal}
 								setOpen={setOpenAddCategoryModal}
-								onSuccess={addCategory}
+								searchParam={searchParam}
 							>
 								<Button size='sm' onClick={() => setOpenAddCategoryModal(true)}>
 									<PlusIcon className='size-4' />
@@ -186,6 +170,7 @@ export function DecksPage() {
 												key={category.id}
 												category={category}
 												index={index}
+												searchParam={searchParam}
 											/>
 										))}
 									{provided.placeholder}

@@ -12,7 +12,7 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { Category } from '@prisma/client'
+import { Category, Flashcard } from '@prisma/client'
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
@@ -32,10 +32,25 @@ export function AlertDeleteCategory({ id }: { id: string }) {
 		return await res.json()
 	}
 
+	type CategoryType = Category & {
+		flashcards: Flashcard[]
+		subCategories: CategoryType[]
+		parentCategory: string | null
+	}
+
 	const { mutateAsync: deleteCategoryFn } = useMutation({
 		mutationFn: deleteCategory,
 		onSuccess() {
-			queryClient.invalidateQueries()
+			const currentData: CategoryType[] | undefined =
+				queryClient.getQueryData(['categories', searchParam]) || []
+
+			queryClient.setQueryData(['categories', searchParam], () => {
+				const newData: CategoryType[] = currentData?.filter(
+					(category) => category.id !== id,
+				)
+
+				return newData
+			})
 		},
 	})
 

@@ -12,6 +12,7 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
+import { Flashcard } from '@prisma/client'
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -32,7 +33,16 @@ export function AlertDeleteFlashcard({ id }: { id: string }) {
 	const { mutateAsync: deleteCardFn } = useMutation({
 		mutationFn: deleteCard,
 		onSuccess() {
-			queryClient.invalidateQueries()
+			const currentData: Flashcard[] | undefined =
+				queryClient.getQueryData(['flashcards']) || []
+
+			queryClient.setQueryData(['flashcards'], () => {
+				const newData: Flashcard[] = currentData?.filter(
+					(card) => card.id !== id,
+				)
+
+				return newData
+			})
 		},
 	})
 

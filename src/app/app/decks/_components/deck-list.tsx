@@ -28,9 +28,10 @@ type Props = {
 		subCategories?: SubCategory[]
 	}
 	index: number
+	searchParam: string | null
 }
 
-export function DecksList({ category, index }: Props) {
+export function DecksList({ category, index, searchParam }: Props) {
 	const [open, setOpen] = useState(false)
 
 	const getDueFlashcardsCount = (
@@ -111,7 +112,7 @@ export function DecksList({ category, index }: Props) {
 							>
 								<ChevronRightIcon className='size-4' />
 							</Button>
-							<Link href={`/app/decks/${category.id}`}>
+							<Link href={`/app/decks/${category.id}?search=${searchParam}`}>
 								<h3 className='font-bold text-md'>{category.name}</h3>
 							</Link>
 						</div>
@@ -161,6 +162,7 @@ export function DecksList({ category, index }: Props) {
 											key={subCategory.id}
 											category={subCategory}
 											index={index}
+											searchParam={searchParam}
 										/>
 									))}
 								{provided.placeholder}

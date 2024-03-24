@@ -20,9 +20,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Category } from '@prisma/client'
-import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+import { Category, Flashcard } from '@prisma/client'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -40,15 +41,16 @@ type Props = {
 	children: React.ReactNode
 	open: boolean
 	setOpen: (open: boolean) => void
-	onSuccess: (category: Category) => void
+	searchParam: string | null
 }
 
 export function AddCategoryModal({
 	children,
 	open,
 	setOpen,
-	onSuccess,
+	searchParam,
 }: Props) {
+	const queryClient = useQueryClient()
 	const { register, handleSubmit, formState, reset } =
 		useForm<AddCategorySchema>({
 			resolver: zodResolver(addCategorySchema),
@@ -89,9 +91,31 @@ export function AddCategoryModal({
 		}
 	}
 
+	type CategoryType = Category & {
+		flashcards: Flashcard[]
+		subCategories: CategoryType[]
+		parentCategory: string | null
+	}
+
 	const { mutateAsync: handleAddCategoryFn } = useMutation({
 		mutationFn: addCategory,
-		onSuccess,
+		onSuccess(data) {
+			setOpen(false)
+			const currentData: CategoryType[] | undefined =
+				queryClient.getQueryData(['categories', searchParam]) || []
+
+			queryClient.setQueryData(['categories', searchParam], () => {
+				return [
+					...currentData,
+					{
+						...data,
+						flashcards: [],
+						subCategories: [],
+						parentCategory: null,
+					},
+				]
+			})
+		},
 	})
 
 	return (

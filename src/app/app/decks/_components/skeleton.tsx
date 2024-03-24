@@ -5,7 +5,7 @@ import { ChevronRightIcon } from 'lucide-react'
 export function LoadingSkeleton() {
 	return (
 		<main className='space-y-4 overflow-hidden h-[calc(100vh-11rem)] rounded-md'>
-			{Array.from({ length: 5 }).map((_, i) => (
+			{Array.from({ length: 3 }).map((_, i) => (
 				<div
 					key={i}
 					className='flex flex-col w-full p-4 space-y-2 border rounded-md shadow-md dark:shadow-gray-400/5 border-border bg-background'
