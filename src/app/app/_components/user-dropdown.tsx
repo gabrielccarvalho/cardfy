@@ -28,14 +28,12 @@ export function UserDropdown({ user }: UserDropdownProps) {
 					<Avatar className='w-8 h-8'>
 						<AvatarImage src={user?.image || ''} alt='user image' />
 						<AvatarFallback className='uppercase'>
-							{user?.name ? user.name.charAt(0) + user.name.charAt(1) : 'CF'}
+							{user?.name ? user.name.charAt(0) + user.name.charAt(1) : 'U'}
 						</AvatarFallback>
 					</Avatar>
 
 					<div className='flex flex-col flex-1 space-y-1 text-left'>
-						{user?.name && (
-							<p className='text-sm font-medium leading-none'>{user.name}</p>
-						)}
+						<p className='text-sm font-medium leading-none'>{user?.name}</p>
 						<p className='text-xs leading-none text-muted-foreground'>
 							{user?.email}
 						</p>
