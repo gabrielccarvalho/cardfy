@@ -1,3 +1,5 @@
+import { DemoVideo } from '../ui/demo-video'
+
 export function Demo() {
 	return (
 		<main className='flex flex-col items-center mt-12 mb-10 w-full'>
@@ -18,7 +20,7 @@ export function Demo() {
 					superpowers to achieve all of your goals.
 				</p>
 			</div>
-			<div className='w-3/4 max-w-6xl border border-border bg-gray-400/10 rounded-md shadow-lg backdrop-blur-md aspect-video mt-12' />
+			<DemoVideo previewUrl='/assets/landing-page/features.png' />
 		</main>
 	)
 }

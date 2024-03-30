@@ -1,7 +1,10 @@
 import { ChevronRightIcon } from '@radix-ui/react-icons'
+import { PlayIcon } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
+import { DemoVideo } from '../ui/demo-video'
 import { Companies } from './companies'
 import { DecksDemo } from './decks-demo'
 
@@ -38,7 +41,8 @@ export function Heading() {
 					Get a demo
 				</Button>
 			</div>
-			<DecksDemo />
+			<DemoVideo previewUrl='/assets/landing-page/hero.png' />
+			{/* <DecksDemo /> */}
 			<Companies />
 		</main>
 	)
